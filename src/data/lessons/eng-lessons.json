@@ -100,14 +100,14 @@
     "level": 7,
     "title": "Level 7: ตัวพิมพ์ใหญ่และปุ่ม Shift (Capital Letters & Shift)",
     "titleEn": "Level 7: Capital Letters & Shift",
-    "description": "ฝึกใช้นิ้วก้อยกด Shift สลับมือตรงข้ามเพื่อพิมพ์ตัวอักษรพิมพ์ใหญ่",
+    "description": "ฝึกใช้นิ้วก้อยกด Shift สลับมือตรงข้ามเพื่อพิมพ์ตัวอักษรพิมพ์ใหญ่ A-Z ครบทุกตัว",
     "targetKeys": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
     "exercises": [
-      "London, Paris, Tokyo, New York, Bangkok.",
-      "Monday, Tuesday, Wednesday, Friday, Sunday.",
-      "Alice and Bob traveled across North America.",
-      "Dr. John Smith met Professor Jane Doe at Harvard.",
-      "Great minds discuss ideas, average minds discuss events.",
+      "Henry, Jack, Victor and Victoria visited Vancouver and Venice with Zachary.",
+      "Xavier examined the X-ray results at Zurich Zoo in Zimbabwe.",
+      "London, Paris, Tokyo, New York, Bangkok and Berlin.",
+      "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.",
+      "Alice, Bob, Charlie, David, Emma, Frank and Grace met in Washington.",
       "Success is not final, failure is not fatal: it is the courage to continue that counts."
     ]
   },
@@ -132,15 +132,15 @@
     "level": 9,
     "title": "Level 9: สัญลักษณ์และเครื่องหมายพิเศษ (Symbols & Punctuation)",
     "titleEn": "Level 9: Symbols & Punctuation",
-    "description": "ฝึกกด Shift แถวตัวเลขเคาะเครื่องหมาย ! @ # $ % ^ & * ( ) _ + และ [ ] { } : \" < > ?",
-    "targetKeys": ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "{", "}", "[", "]", ":", "\"", "<", ">", "?"],
+    "description": "ฝึกกด Shift แถวตัวเลขเคาะเครื่องหมาย ! @ # $ % ^ & * ( ) _ + และ [ ] { } : \" < > ? ~ ` \\",
+    "targetKeys": ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "{", "}", "[", "]", ":", "\"", "<", ">", "?", "~", "`", "\\"],
     "exercises": [
-      "Email: admin@test.com | Tag: #innovation",
-      "Special price: $99.99 (save 25% today)!",
-      "The score was 98.5% (ranked #1 in top 10).",
-      "Question: \"Is this correct?\" -> Answer: Yes!",
-      "Use symbols carefully: *important*, _underline_, and [brackets].",
-      "Save 50% on all orders over $100: Code #SUMMER2026!"
+      "Email: admin@test.com | Tag: #innovation | Path: C:\\Users\\App",
+      "Special price: $99.99 (save 25% today)! Approx ~100 units.",
+      "Condition: if (score < 50 || score > 100) { alert(\"Error!\"); }",
+      "Bitwise power: 2^8 = 256; Template string: `Value: ${val}`",
+      "Question: \"Is this correct?\" -> Answer: Yes, exactly!",
+      "Use symbols carefully: *bold*, _underline_, and [brackets] with {braces}."
     ]
   },
   {
@@ -148,14 +148,14 @@
     "level": 10,
     "title": "Level 10: โค้ดและไวยากรณ์โปรแกรมเมอร์ (Coding & Tech Syntax)",
     "titleEn": "Level 10: Coding & Tech Syntax",
-    "description": "ฝึกพิมพ์สัญลักษณ์สำหรับเขียนโปรแกรม เช่น camelCase, arrow functions, brackets, operators",
-    "targetKeys": ["const", "let", "function", "=>", "{}", "()", "[]", ";", "&&", "||", "==="],
+    "description": "ฝึกพิมพ์สัญลักษณ์สำหรับเขียนโปรแกรม เช่น camelCase, arrow functions, backticks, brackets, operators",
+    "targetKeys": ["const", "let", "function", "=>", "{}", "()", "[]", ";", "&&", "||", "===", "`", "\\"],
     "exercises": [
-      "const totalCount = items.length;",
+      "const totalCount = items.length; let isValid = true;",
       "function calculateSum(a, b) { return a + b; }",
-      "const result = data.filter(item => item.isActive);",
-      "if (status === 200 && response.ok) { processData(); }",
-      "npm run dev && git commit -m \"feat: enhance UI\"",
+      "const result = data.filter(item => item.id < 100 && item.isActive);",
+      "const filePath = `C:\\src\\components\\App.tsx`; // load ~20ms",
+      "npm run dev && git commit -m \"feat: enhance UI with 2^4 speed\"",
       "export default async function fetchData(url: string) { return await fetch(url); }"
     ]
   },
