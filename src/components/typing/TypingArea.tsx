@@ -1,7 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { RotateCcw, MousePointerClick, Skull, Ghost } from 'lucide-react';
 import { CharDetail, Language } from '../../types/typing';
-import { isThaiCombiningMark } from '../../utils/thaiTokenizer';
 
 interface TypingAreaProps {
   charDetails: CharDetail[];
@@ -30,6 +29,23 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const activeCharRef = useRef<HTMLSpanElement>(null);
   const [isFocused, setIsFocused] = useState(true);
+
+  // Group characters into words for natural Thai ligatures, word-wrapping, and readability
+  const wordGroups = useMemo(() => {
+    const groups: { chars: { item: CharDetail; index: number }[]; isSpace: boolean }[] = [];
+    let currentGroup: { chars: { item: CharDetail; index: number }[]; isSpace: boolean } | null = null;
+
+    charDetails.forEach((item, index) => {
+      const isSpace = item.char === ' ';
+      if (!currentGroup || currentGroup.isSpace !== isSpace) {
+        currentGroup = { chars: [], isSpace };
+        groups.push(currentGroup);
+      }
+      currentGroup.chars.push({ item, index });
+    });
+
+    return groups;
+  }, [charDetails]);
 
   // Auto-focus input on mount and whenever restarted
   useEffect(() => {
@@ -186,43 +202,70 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
       {/* Text Stream Display */}
       <div
         ref={containerRef}
-        className="p-6 sm:p-8 max-h-64 sm:max-h-72 overflow-y-auto font-thai text-xl sm:text-2xl leading-relaxed tracking-wider"
+        className="p-6 sm:p-8 max-h-64 sm:max-h-72 overflow-y-auto font-thai text-2xl sm:text-3xl leading-loose tracking-normal"
       >
-        <div className="flex flex-wrap items-baseline gap-y-2">
-          {charDetails.map((item, index) => {
-            const isCurrent = index === currentIndex;
-            const isPending = item.status === 'pending';
-            const isCorrect = item.status === 'correct';
-            const isIncorrect = item.status === 'incorrect';
+        <div className="flex flex-wrap items-baseline gap-y-3">
+          {wordGroups.map((group, groupIdx) => {
+            if (group.isSpace) {
+              const spaceChar = group.chars[0];
+              const isCurrent = spaceChar.index === currentIndex;
+              const isCorrect = spaceChar.item.status === 'correct';
+              const isIncorrect = spaceChar.item.status === 'incorrect';
 
-            let charClass = '';
-            if (isCorrect) {
-              charClass = 'text-emerald-600 dark:text-emerald-400 font-medium';
-            } else if (isIncorrect) {
-              charClass = 'text-rose-600 dark:text-rose-400 bg-rose-500/20 rounded px-0.5 underline decoration-rose-500';
-            } else if (isCurrent) {
-              charClass = 'text-sky-700 dark:text-sky-300 font-semibold bg-sky-500/15 dark:bg-sky-500/25 rounded px-0.5 custom-caret';
-            } else if (isPending) {
-              charClass = blindMode
-                ? 'text-slate-300 dark:text-slate-600 blur-[5px] select-none opacity-30'
-                : 'text-slate-400 dark:text-slate-500';
+              return (
+                <span
+                  key={`space-${groupIdx}`}
+                  ref={isCurrent ? activeCharRef : null}
+                  className={`inline-flex items-center justify-center font-mono text-sm px-1.5 py-0.5 mx-0.5 rounded transition-all select-none ${
+                    isCurrent
+                      ? 'text-sky-600 dark:text-sky-300 bg-sky-500/20 dark:bg-sky-500/30 font-bold ring-2 ring-sky-500/50 animate-pulse'
+                      : isCorrect
+                      ? 'text-emerald-500/50'
+                      : isIncorrect
+                      ? 'text-rose-500 bg-rose-500/20'
+                      : 'text-slate-300 dark:text-slate-700'
+                  }`}
+                  title={language === 'th' ? 'เคาะเว้นวรรค (Space)' : 'Spacebar'}
+                >
+                  ␣
+                </span>
+              );
             }
-
-            const isCombining = isThaiCombiningMark(item.char);
-
-            // Display space character visually
-            const displayChar =
-              item.char === ' ' ? (isCurrent ? '␣' : '\u00A0') : item.char;
 
             return (
               <span
-                key={index}
-                ref={isCurrent ? activeCharRef : null}
-                className={`inline-block transition-colors duration-100 ${
-                  isCombining ? 'min-w-[0.9em] text-center' : ''
-                } ${charClass}`}
+                key={`word-${groupIdx}`}
+                className="inline-block whitespace-nowrap mx-1"
               >
-                {displayChar}
+                {group.chars.map(({ item, index }) => {
+                  const isCurrent = index === currentIndex;
+                  const isCorrect = item.status === 'correct';
+                  const isIncorrect = item.status === 'incorrect';
+                  const isPending = item.status === 'pending';
+
+                  let charClass = '';
+                  if (isCorrect) {
+                    charClass = 'text-emerald-600 dark:text-emerald-400 font-medium';
+                  } else if (isIncorrect) {
+                    charClass = 'text-rose-600 dark:text-rose-400 bg-rose-500/20 underline decoration-rose-500 decoration-2';
+                  } else if (isCurrent) {
+                    charClass = 'text-sky-600 dark:text-sky-300 font-bold underline decoration-sky-500 decoration-3 underline-offset-4 bg-sky-500/15 dark:bg-sky-500/25 rounded-xs';
+                  } else if (isPending) {
+                    charClass = blindMode
+                      ? 'text-slate-300 dark:text-slate-600 blur-[5px] select-none opacity-30'
+                      : 'text-slate-400 dark:text-slate-500';
+                  }
+
+                  return (
+                    <span
+                      key={index}
+                      ref={isCurrent ? activeCharRef : null}
+                      className={`inline transition-colors duration-100 ${charClass}`}
+                    >
+                      {item.char}
+                    </span>
+                  );
+                })}
               </span>
             );
           })}
