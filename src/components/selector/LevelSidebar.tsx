@@ -25,7 +25,7 @@ export const LevelSidebar: React.FC<LevelSidebarProps> = ({
   const currentLesson = lessons.find((l) => l.id === currentLessonId) || lessons[0];
 
   return (
-    <aside className="w-full lg:w-72 shrink-0 bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800 p-3 sm:p-4 shadow-sm flex flex-col gap-3 transition-colors">
+    <aside className="w-full lg:w-72 shrink-0 bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800 p-3 sm:p-4 shadow-sm flex flex-col gap-3 transition-colors lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]">
       {/* Sidebar Header */}
       <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-2.5">
         <div className="flex items-center gap-2">
@@ -53,7 +53,7 @@ export const LevelSidebar: React.FC<LevelSidebarProps> = ({
       </div>
 
       {/* Levels Vertical List (Always visible on lg:, toggleable on mobile) */}
-      <div className={`${isMobileExpanded ? 'flex' : 'hidden lg:flex'} flex-col gap-2`}>
+      <div className={`${isMobileExpanded ? 'flex' : 'hidden lg:flex'} flex-col gap-2 overflow-y-auto pr-1 max-h-[70vh] lg:max-h-[calc(100vh-8rem)]`}>
         {lessons.map((lesson) => {
           const isSelected = lesson.id === currentLessonId;
           const progress = lessonProgress[lesson.id];

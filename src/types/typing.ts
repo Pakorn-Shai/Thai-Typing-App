@@ -4,7 +4,7 @@ export type PracticeMode = 'lesson' | 'timed' | 'words' | 'custom';
 
 export type SoundProfile = 'clicky' | 'thock' | 'bubble' | 'off';
 
-export type LessonLevel = 1 | 2 | 3 | 4 | 5;
+export type LessonLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | number;
 
 export type TimedDuration = 60 | 180 | 300; // 1 min, 3 min, 5 min
 
