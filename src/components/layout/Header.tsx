@@ -11,6 +11,7 @@ import {
   ChevronDown,
   Sliders,
   Play,
+  Trophy,
 } from 'lucide-react';
 import { Language, SoundProfile } from '../../types/typing';
 import { soundManager } from '../../utils/sound';
@@ -26,6 +27,7 @@ interface HeaderProps {
   onToggleTheme: () => void;
   onOpenHistory: () => void;
   historyCount: number;
+  onOpenLeaderboard?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -39,6 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleTheme,
   onOpenHistory,
   historyCount,
+  onOpenLeaderboard,
 }) => {
   const [showSoundMenu, setShowSoundMenu] = useState(false);
   const soundMenuRef = useRef<HTMLDivElement>(null);
@@ -101,6 +104,18 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Action Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Top 10 Leaderboard Button */}
+          {onOpenLeaderboard && (
+            <button
+              onClick={onOpenLeaderboard}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs font-semibold transition-all"
+              title={language === 'th' ? 'ดูกระดานผู้นำ Top 10' : 'View Top 10 Leaderboard'}
+            >
+              <Trophy className="w-3.5 h-3.5 text-amber-500" />
+              <span className="hidden sm:inline">Top 10</span>
+            </button>
+          )}
+
           {/* History & Statistics Button */}
           <button
             onClick={onOpenHistory}

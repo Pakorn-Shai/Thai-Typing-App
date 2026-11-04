@@ -88,6 +88,18 @@ export interface TypingHistoryRecord {
   mistakeKeys: Record<string, number>;
 }
 
+export interface LeaderboardEntry {
+  id: string;
+  name: string;
+  wpm: number;
+  cpm: number;
+  accuracy: number;
+  durationSeconds: number; // 60, 180, 300
+  date: string; // ISO date string
+  timestamp: number;
+  language: Language;
+}
+
 export type FingerPosition =
   | 'left-pinky'
   | 'left-ring'

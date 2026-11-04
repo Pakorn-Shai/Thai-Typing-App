@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { ModeSelector } from './components/selector/ModeSelector';
@@ -9,6 +9,9 @@ import { VirtualKeyboard } from './components/typing/VirtualKeyboard';
 import { ResultCard } from './components/analytics/ResultCard';
 import { WeakKeyAnalysis } from './components/analytics/WeakKeyAnalysis';
 import { HistoryModal } from './components/analytics/HistoryModal';
+import { NamePromptModal } from './components/leaderboard/NamePromptModal';
+import { LeaderboardSection } from './components/leaderboard/LeaderboardSection';
+import confetti from 'canvas-confetti';
 
 import {
   Language,
@@ -17,6 +20,7 @@ import {
   TypingHistoryRecord,
   SoundProfile,
   LessonProgress,
+  LeaderboardEntry,
 } from './types/typing';
 
 import thaiLessonsData from './data/lessons/thai-lessons.json';
@@ -70,6 +74,12 @@ export function App() {
   // Stored history & progress
   const [history, setHistory] = useLocalStorage<TypingHistoryRecord[]>('ttl_history', []);
   const [lessonProgress, setLessonProgress] = useLocalStorage<Record<string, LessonProgress>>('ttl_lesson_progress', {});
+
+  // Stored Timed Test Leaderboard & Player Name
+  const [leaderboard, setLeaderboard] = useLocalStorage<LeaderboardEntry[]>('ttl_timed_leaderboard', []);
+  const [lastPlayerName, setLastPlayerName] = useLocalStorage<string>('ttl_last_player_name', '');
+  const [isNamePromptOpen, setIsNamePromptOpen] = useState<boolean>(false);
+  const leaderboardRef = useRef<HTMLDivElement>(null);
 
   // Lessons based on current language
   const lessons = useMemo(() => {
@@ -236,7 +246,48 @@ export function App() {
     setIsCompleted(true);
     pauseTimer();
     saveRecord();
-  }, [setIsCompleted, pauseTimer, saveRecord]);
+    if (mode === 'timed') {
+      setIsNamePromptOpen(true);
+    }
+  }, [setIsCompleted, pauseTimer, saveRecord, mode]);
+
+  const handleSaveLeaderboard = useCallback(
+    (name: string) => {
+      setLastPlayerName(name);
+      const newEntry: LeaderboardEntry = {
+        id: Date.now().toString(),
+        name,
+        wpm: stats.wpm,
+        cpm: stats.cpm,
+        accuracy: stats.accuracy,
+        durationSeconds: timedDuration,
+        date: new Date().toISOString(),
+        timestamp: Date.now(),
+        language,
+      };
+
+      setLeaderboard((prev) => [newEntry, ...(prev || [])]);
+      setIsNamePromptOpen(false);
+
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      } catch {
+        // ignore
+      }
+    },
+    [stats, timedDuration, language, setLastPlayerName, setLeaderboard]
+  );
+
+  const handleScrollToLeaderboard = useCallback(() => {
+    setMode('timed');
+    setTimeout(() => {
+      leaderboardRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }, []);
 
   const handleRestart = useCallback(() => {
     resetTimer();
@@ -303,6 +354,7 @@ export function App() {
         onToggleTheme={() => setIsDark((prev) => !prev)}
         onOpenHistory={() => setIsHistoryOpen(true)}
         historyCount={history.length}
+        onOpenLeaderboard={handleScrollToLeaderboard}
       />
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col gap-6">
@@ -424,9 +476,31 @@ export function App() {
                 )}
               </div>
             )}
+
+            {/* Top 10 Leaderboard for Timed Test Mode */}
+            {mode === 'timed' && (
+              <div ref={leaderboardRef} className="pt-2">
+                <LeaderboardSection
+                  entries={leaderboard}
+                  language={language}
+                  onClearLeaderboard={() => setLeaderboard([])}
+                />
+              </div>
+            )}
           </div>
         </div>
       </main>
+
+      {/* Name Prompt Modal for Timed Test Leaderboard */}
+      <NamePromptModal
+        isOpen={isNamePromptOpen}
+        onClose={() => setIsNamePromptOpen(false)}
+        onSubmit={handleSaveLeaderboard}
+        stats={stats}
+        durationSeconds={timedDuration}
+        language={language}
+        initialName={lastPlayerName}
+      />
 
       {/* History & Analytics Modal */}
       <HistoryModal
