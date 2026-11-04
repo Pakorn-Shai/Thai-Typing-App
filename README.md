@@ -1,85 +1,179 @@
-# ⌨️ Thai Typing Lab
+# ⌨️ Thai Typing Lab (ห้องทดลองพิมพ์สัมผัสไทย-อังกฤษ)
 
-เว็บแอปพลิเคชันสำหรับฝึกพิมพ์สัมผัสภาษาไทยและภาษาอังกฤษ เน้นการฝึกฝนตามแถวแป้นพิมพ์ (Row Progression), การวัดผลความเร็วและความแม่นยำแบบเรียลไทม์ และการวิเคราะห์ข้อผิดพลาดเฉพาะบุคคลโดยไม่ต้องล็อกอิน (Privacy-first / Local-first)
-
----
-
-## 🎯 วัตถุประสงค์และฟีเจอร์หลัก (MVP)
-
-1. **โหมดการฝึกฝนตามลำดับขั้น (Progressive Lessons):**
-   - **Level 1 (Home Row):** `ฟ ห ก ด ่ า ส ว`
-   - **Level 2 (Top Row):** `ๆ ไ ำ พ ะ ั ี ร น ย บ ล`
-   - **Level 3 (Bottom Row):** `ผ ป แ อ ิ ื ท ม ใ ฝ`
-   - **Level 4 (Shift Layer):** สระลอย วรรณยุกต์พิเศษ และอักขระแถวบน
-   - **Level 5 (Common Words):** คำศัพท์ภาษาไทยและอังกฤษที่พบบ่อย
-   - **Timed Test Mode:** โหมดทดสอบจับเวลา 1 นาที, 3 นาที, 5 นาที
-2. **Thai Typing Engine & Metrics:**
-   - **CPM (Characters Per Minute):** ดัชนีหลักสำหรับภาษาไทย คำนวณจาก `(อักขระถูกต้อง * 60) / เวลา (วินาที)`
-   - **Normalized WPM:** คำนวณจากเกณฑ์สากล `CPM / 5`
-   - **Accuracy (%):** เปอร์เซ็นต์ความถูกต้องของคีย์สโตรก
-   - **Unicode Normalization:** รองรับการจัดการสระลอยและวรรณยุกต์ซ้อน (`NFC`) เพื่อป้องกันปัญหาลำดับการเคาะคีย์
-3. **Interactive Visual Feedback:**
-   - Text display แยกสีชัดเจน: เขียว (ถูกต้อง), แดง (ผิดพลาด), ไฮไลต์เคอร์เซอร์ตำแหน่งปัจจุบัน
-   - แป้นพิมพ์จำลอง (On-screen Virtual Keyboard) รองรับ Kedmanee (เกษมณี) พร้อมแถบไฮไลต์ปุ่มถัดไป
-4. **Local Data Persistence & Privacy:**
-   - ไม่บังคับสมัครสมาชิก ไม่ส่งข้อความที่พิมพ์ออกนอกเครื่อง
-   - บันทึกสถิติ ประวัติการทดสอบ และ Heatmap แป้นที่พิมพ์ผิดบ่อย (Weak Keys) ลงใน `LocalStorage`
-5. **Shareable Result Card:**
-   - การ์ดสรุปผลคะแนนท้ายการทดสอบ พร้อมฟังก์ชัน Copy ข้อความ/รูปภาพเพื่อนำไปแชร์
+เว็บแอปพลิเคชันเกรดโปรดักชันสำหรับฝึกพิมพ์สัมผัสภาษาไทยและภาษาอังกฤษ เน้นการฝึกฝนตามแถวแป้นพิมพ์ (Row Progression), การวัดผลความเร็วและความแม่นยำแบบเรียลไทม์ และการวิเคราะห์ข้อผิดพลาดเฉพาะบุคคลโดยไม่ต้องล็อกอิน (Privacy-first / Local-first)
 
 ---
 
-## 🛠 Tech Stack
+## ✨ ฟีเจอร์หลัก (Key Features)
 
-- **Framework:** React 18 / 19 + Vite (TypeScript)
-- **Styling:** Tailwind CSS + Lucide Icons (สำหรับ UI Icons)
-- **State Management:** React Hooks (`useReducer`, `useState`, `useEffect`)
-- **Storage:** Browser LocalStorage API
-- **Audio Feedback (Optional):** Web Audio API (Synthesized click / error sounds)
+### 1. โหมดการฝึกฝนและทดสอบ (Typing Modes)
+- **Progressive Lessons (บทเรียนตามลำดับขั้น):**
+  - **Level 1 (Home Row แถวแป้นเหย้า):** `ฟ ห ก ด ่ า ส ว`
+  - **Level 2 (Top Row แถวบน):** `ๆ ไ ำ พ ะ ั ี ร น ย บ ล`
+  - **Level 3 (Bottom Row แถวล่าง):** `ผ ป แ อ ิ ื ท ม ใ ฝ`
+  - **Level 4 (Shift Layer แป้นยก):** สระลอย วรรณยุกต์พิเศษ และอักขระพิเศษ
+  - **Level 5 (Sentences & Paragraphs):** ประโยคและข้อความยาว
+- **Timed Test Mode (โหมดจับเวลา):** ทดสอบจับเวลามาตรฐาน 1 นาที, 3 นาที และ 5 นาที พร้อมนับถอยหลังอัตโนมัติ
+- **Common Words Mode (คลังคำพบบ่อย):** สุ่มคำศัพท์ที่พบบ่อยจากคลังคำเพื่อฝึกฝนความคล่องตัว
+- **Custom Text Mode (ข้อความกำหนดเอง):** วางข้อความที่ต้องการฝึกฝนได้ตามใจชอบ
+- **Sudden Death / Strict Mode (โหมดพิมพ์ห้ามผิด):** โหมดท้าทาย หากพิมพ์ผิดแม้แต่ตัวเดียวจะจบการทดสอบทันที
+- **Blind Mode (โหมดพิมพ์ไม่มองตัวอักษร):** เบลอข้อความเป้าหมายเพื่อฝึกความจำของกล้ามเนื้อมือ (Muscle Memory)
+
+### 2. ผังแป้นพิมพ์ที่รองรับ (Keyboard Layouts)
+- **ภาษาไทย:** แป้นพิมพ์เกษมณี (**Kedmanee**) และ แป้นพิมพ์ปัตตะโชติ (**Pattachote**)
+- **ภาษาอังกฤษ:** แป้นพิมพ์มาตรฐาน (**QWERTY**)
+- แสดงแป้นพิมพ์เสมือนจริง (Virtual On-Screen Keyboard) แบบ Responsive พร้อม:
+  - ไฮไลต์ปุ่มถัดไปที่ต้องกด
+  - แจ้งเตือนเมื่อต้องกดปุ่ม `Shift`
+  - ไฮไลต์นิ้วมือและมือซ้าย/ขวาที่ถูกต้องตามหลักสรีรศาสตร์
+  - มาร์กเกอร์แป้นเหย้าสัมผัส (`ด` / `F` และ `่` / `J`)
+
+### 3. Thai Typing Engine & Metrics
+- **CPM (Characters Per Minute):** ดัชนีวัดผลหลักสำหรับภาษาไทย คำนวณจาก `(อักขระถูกต้อง × 60) / เวลา (วินาที)`
+- **Normalized WPM:** คำนวณมาตรฐานสากล `CPM / 5`
+- **Accuracy (%):** อัตราความถูกต้องคิดเป็นเปอร์เซ็นต์
+- **Unicode NFC Normalization & Grapheme Handling:** จัดการสระ-วรรณยุกต์ซ้อนและสระลอย ป้องกันข้อผิดพลาดจากการรวมตัวอักษร Unicode
+- **Speed Trajectory Chart (SVG):** พล็อตกราฟความเร็ว CPM วินาทีต่อวินาทีเมื่อพิมพ์เสร็จ
+
+### 4. ระบบเสียง Mechanical Keyboard (Web Audio API)
+- สังเคราะห์เสียงสวิตช์กลไกสมจริงผ่าน Web Audio API (ไม่ต้องดาวน์โหลดไฟล์เสียงภายนอก):
+  - **Clicky Blue:** เสียงคลิกคมชัดสไตล์สวิตช์ Blue
+  - **Thock Brown:** เสียงทุ้มแน่นสไตล์ Tactile/Linear Thock
+  - **Bubble Pop:** เสียงฟองสบู่สดใส นุ่มนวล
+  - **Mute / Off:** ปิดเสียงสำหรับสภาพแวดล้อมที่ต้องการความเงียบ
+- แถบปรับระดับเสียง (Volume Slider) 0% – 100% พร้อมปุ่มทดสอบเสียงล่วงหน้า
+
+### 5. UI/UX & Navigation
+- **Left Vertical Sidebar:** เมนูเลือก Level 1–5 อยู่ด้านข้างซ้าย ไม่ต้องเลื่อนแนวนอน แสดงระดับดาวและปุ่มที่ต้องฝึกในแต่ละบทเรียน พร้อมปุ่มย่อ/ขยายบนหน้าจอ Mobile
+- **Theme Adaptability:** รองรับ Dark Mode และ Light Mode อย่างสมบูรณ์แบบ สลับธีมได้ทันทีและบันทึกสถานะ
+- **Responsive Design:** ใช้งานได้บนคอมพิวเตอร์ แท็บเล็ต และสมาร์ตโฟน (รองรับ Virtual Keyboard บนมือถือ)
+- **Keyboard Shortcuts:**
+  - `Tab + Enter`: รีสตาร์ตข้อความปัจจุบันทันที
+  - `Escape`: ปิดหน้าต่างโมดอล
+
+### 6. การวิเคราะห์ผลและบันทึกข้อมูล (Analytics & Privacy)
+- **Local-first / Privacy-first:** ข้อมูลทั้งหมดจัดเก็บใน `localStorage` ของเบราว์เซอร์ ไม่มีการส่งข้อมูลส่วนบุคคลออกนอกเครื่อง
+- **Weak Key Analysis:** จัดอันดับปุ่มที่พิมพ์ผิดบ่อยที่สุด พร้อมแนะนำนิ้วมือที่ควรฝึกเพิ่มเติม
+- **History Modal:** บันทึกประวัติการทดสอบ ยอดรวมการฝึก สถิติ WPM/CPM สูงสุด และกราฟแท่งแนวโน้มผลการฝึก
+- **Shareable Result Card:**
+  - ส่งออกภาพสรุปผลความละเอียดสูง (1200×630 PNG) อัตโนมัติด้วย HTML5 Canvas
+  - ปุ่มคลิกเดียวเพื่อคัดลอกรูปภาพเข้า Clipboard หรือดาวน์โหลดลงเครื่อง
+  - คัดลอกสรุปผลแบบข้อความสำหรับแชร์บน Social Media / Discord
 
 ---
 
-## 📁 โครงสร้างโฟลเดอร์ที่กำหนด (Project Directory Structure)
+## 🚀 การติดตั้งและรันโปรเจกต์ (Getting Started)
+
+### ความต้องการของระบบ (Prerequisites)
+- [Node.js](https://nodejs.org/) เวอร์ชัน 18 ขึ้นไป
+- [npm](https://www.npmjs.com/) หรือ [pnpm](https://pnpm.io/)
+
+### 1. ติดตั้ง Dependencies
+```bash
+npm install
+```
+
+### 2. รัน Development Server
+```bash
+npm run dev
+```
+เปิดเบราว์เซอร์ไปที่ `http://localhost:5173/`
+
+### 3. รัน Unit Tests
+```bash
+npm run test
+```
+
+### 4. Build สำหรับ Production
+```bash
+npm run build
+```
+ไฟล์ผลลัพธ์ที่ปรับปรุงประสิทธิภาพแล้วจะอยู่ในโฟลเดอร์ `dist/` พร้อมสำหรับการ Deploy บน Vercel, Netlify, Cloudflare Pages หรือ GitHub Pages
+
+### 5. Preview Production Build
+```bash
+npm run preview
+```
+
+---
+
+## 📁 โครงสร้างโปรเจกต์ (Project Directory Structure)
 
 ```text
 thai-typing-lab/
-├── index.html
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-├── tailwind.config.js
-├── postcss.config.js
-├── README.md
+├── .github/
+│   └── workflows/
+│       └── ci.yml                 # GitHub Actions CI (Build & Test)
+├── index.html                     # HTML Entrypoint
+├── package.json                   # Dependencies & Scripts
+├── tsconfig.json                  # TypeScript Compiler Configuration
+├── vite.config.ts                 # Vite & Vitest Configuration
+├── tailwind.config.js             # Tailwind CSS Theme & Plugins
+├── postcss.config.js              # PostCSS Configuration
+├── README.md                      # Project Documentation
 └── src/
-    ├── main.tsx
-    ├── App.tsx
-    ├── index.css
+    ├── main.tsx                   # React DOM Entrypoint
+    ├── App.tsx                    # Main App Controller & State
+    ├── index.css                  # Global Styles & Animations
     ├── types/
-    │   └── typing.ts              # Type definitions (Stats, Lesson, KeyState, Result)
+    │   └── typing.ts              # TypeScript Interfaces & Data Contracts
     ├── data/
     │   ├── lessons/
-    │   │   ├── thai-lessons.json   # บทเรียนแถวแป้นพิมพ์ไทย (Home row, Top, Bottom, Shift)
-    │   │   └── eng-lessons.json    # บทเรียนแถวแป้นพิมพ์อังกฤษ
-    │   ├── common-words-th.json   # คำศัพท์ภาษาไทยที่ใช้บ่อย
-    │   └── keyboard-layouts.json  # ผังคีย์บอร์ด เกษมณี & QWERTY
+    │   │   ├── thai-lessons.json  # แบบฝึกหัดภาษาไทย 5 เลเวล
+    │   │   └── eng-lessons.json   # แบบฝึกหัดภาษาอังกฤษ 5 เลเวล
+    │   ├── common-words-th.json   # คลังคำศัพท์ภาษาไทยพบบ่อย
+    │   └── keyboard-layouts.json  # ข้อมูลผังแป้นพิมพ์ เกษมณี, ปัตตะโชติ, QWERTY
     ├── hooks/
-    │   ├── useTypingEngine.ts     # Core logic คำนวณ CPM, WPM, Accuracy, Key index
-    │   ├── useTimer.ts            # จับเวลา Countdown และ Elapsed time
-    │   └── useLocalStorage.ts     # Wrapper จัดการ LocalStorage
+    │   ├── useTypingEngine.ts     # Typing logic, Keystroke validation, Timeline snapshots
+    │   ├── useTimer.ts            # Stopwatch & Countdown timer
+    │   └── useLocalStorage.ts     # Type-safe LocalStorage hook
     ├── components/
     │   ├── layout/
-    │   │   ├── Header.tsx         # โลโก้, ตัวเลือกภาษา (TH/EN), สลับธีม
-    │   │   └── Footer.tsx
+    │   │   ├── Header.tsx         # Brand, Language switcher, Audio controller, Theme toggle
+    │   │   └── Footer.tsx         # Shortcut hints, Privacy badge
+    │   ├── selector/
+    │   │   ├── LevelSidebar.tsx   # เมนูเลือก Level 1-5 ด้านซ้ายมือ (Vertical Sidebar)
+    │   │   └── ModeSelector.tsx   # โหมดการฝึก (Lesson, Timed, Words, Custom, Sudden Death, Blind)
     │   ├── typing/
-    │   │   ├── TypingArea.tsx     # กล่องแสดงข้อความและตรวจจับการพิมพ์
-    │   │   ├── MetricBar.tsx      # แถบแสดง WPM, CPM, Accuracy, เวลาที่เหลือ
-    │   │   └── VirtualKeyboard.tsx# แป้นพิมพ์จำลองแสดงนิ้วและไฮไลต์ปุ่มถัดไป
-    │   ├── analytics/
-    │   │   ├── ResultCard.tsx     # สรุปคะแนนเมื่อจบเวลา พร้อมปุ่มแชร์
-    │   │   └── WeakKeyAnalysis.tsx# วิเคราะห์ปุ่มที่กดผิดบ่อย
-    │   └── selector/
-    │       └── ModeSelector.tsx   # เมนูเลือก Level / Mode / เวลา
+    │   │   ├── TypingArea.tsx     # กล่องข้อความแบบโต้ตอบ ตัวชี้เคอร์เซอร์ และสถานะสี
+    │   │   ├── MetricBar.tsx      # แถบแสดง CPM, WPM, Accuracy, เวลา และ Progress Bar
+    │   │   └── VirtualKeyboard.tsx# แป้นพิมพ์จำลองแสดงนิ้วมือและไฮไลต์ปุ่มถัดไป
+    │   └── analytics/
+    │       ├── ResultCard.tsx     # การ์ดสรุปผลคะแนน, SVG Chart, ดาวน์โหลด/คัดลอกรูปภาพ
+    │       ├── WeakKeyAnalysis.tsx# วิเคราะห์ปุ่มที่พิมพ์ผิดบ่อยและนิ้วที่แนะนำ
+    │       └── HistoryModal.tsx   # บันทึกประวัติการทดสอบ, KPI รวม และกราฟแนวโน้ม
     └── utils/
-        ├── metrics.ts             # ฟังก์ชันคำนวณ CPM, WPM, Accuracy
-        ├── thaiTokenizer.ts       # Utility สำหรับจัดการ Grapheme Clusters และ String Normalize
-        └── sound.ts               # Web Audio API สร้างเสียงคีย์บอร์ด
+        ├── metrics.ts             # สูตรคำนวณ CPM, WPM, Accuracy, Time formatting
+        ├── metrics.test.ts        # Unit tests สำหรับ metrics
+        ├── thaiTokenizer.ts       # Unicode NFC normalization & Grapheme character splitting
+        ├── thaiTokenizer.test.ts  # Unit tests สำหรับการตัดสระและวรรณยุกต์ไทย
+        ├── sound.ts               # Web Audio API Synthesizer (Blue, Brown, Bubble)
+        └── cardImage.ts           # HTML5 Canvas 1200x630 Share Card Generator
+```
+
+---
+
+## 🧪 การทดสอบระบบ (Testing & Quality Assurance)
+
+โปรเจกต์ประกอบด้วยชุดการทดสอบครอบคลุมฟังก์ชันหลัก:
+- การคำนวณ CPM, WPM, และ Accuracy ถูกต้องตามมาตรฐาน
+- การตัดคำและแยกลำดับอักขระภาษาไทย (สระบน/ล่าง วรรณยุกต์ ตัวสะกด) ด้วย Unicode NFC
+- การตรวจสอบปุ่มและเลเยอร์ Shift
+
+```bash
+npm run test
+```
+
+---
+
+## 🔒 นโยบายความเป็นส่วนตัว (Privacy First)
+
+- ไม่มีการติดตั้ง Tracker หรือ Analytics ภายนอก
+- ข้อมูลการพิมพ์ ประวัติการทดสอบ และคะแนนทั้งหมดจะถูกจัดเก็บใน `localStorage` ของเครื่องผู้ใช้เท่านั้น
+- ไม่มีการส่งข้อความที่ผู้ใช้ป้อนใน Custom Mode ออกนอกเครือข่าย
+
+---
+
+## 📄 License
+
+MIT License — พัฒนาและเผยแพร่อย่างเปิดเผยเพื่อประโยชน์ทางการศึกษาและการพัฒนาทักษะการพิมพ์สัมผัส

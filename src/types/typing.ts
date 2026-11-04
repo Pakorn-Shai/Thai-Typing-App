@@ -34,6 +34,13 @@ export interface CharDetail {
   typedChar?: string;
 }
 
+export interface SpeedSnapshot {
+  second: number;
+  cpm: number;
+  wpm: number;
+  mistakes: number;
+}
+
 export interface TypingMetrics {
   cpm: number;
   wpm: number;
@@ -45,6 +52,7 @@ export interface TypingMetrics {
   totalTyped: number;
   mistakesMap: Record<string, number>;
   timeRemaining?: number;
+  timeline?: SpeedSnapshot[];
 }
 
 export type TypingStats = TypingMetrics;

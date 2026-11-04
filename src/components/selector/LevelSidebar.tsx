@@ -1,5 +1,5 @@
-import React from 'react';
-import { BookOpen, Star, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { BookOpen, Star, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { Lesson, LessonProgress, Language } from '../../types/typing';
 
 interface LevelSidebarProps {
@@ -21,10 +21,13 @@ export const LevelSidebar: React.FC<LevelSidebarProps> = ({
   lessonProgress,
   language,
 }) => {
+  const [isMobileExpanded, setIsMobileExpanded] = useState(false);
+  const currentLesson = lessons.find((l) => l.id === currentLessonId) || lessons[0];
+
   return (
-    <aside className="w-full lg:w-72 shrink-0 bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm flex flex-col gap-3 transition-colors">
+    <aside className="w-full lg:w-72 shrink-0 bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800 p-3 sm:p-4 shadow-sm flex flex-col gap-3 transition-colors">
       {/* Sidebar Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-2.5">
         <div className="flex items-center gap-2">
           <div className="p-1.5 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
             <BookOpen className="w-4 h-4" />
@@ -38,10 +41,19 @@ export const LevelSidebar: React.FC<LevelSidebarProps> = ({
             </span>
           </div>
         </div>
+
+        {/* Mobile toggle button */}
+        <button
+          onClick={() => setIsMobileExpanded((prev) => !prev)}
+          className="lg:hidden p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs flex items-center gap-1"
+        >
+          <span className="font-semibold text-[11px]">Lv.{currentLesson.level}</span>
+          {isMobileExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </button>
       </div>
 
-      {/* Levels Vertical List */}
-      <div className="flex flex-col gap-2">
+      {/* Levels Vertical List (Always visible on lg:, toggleable on mobile) */}
+      <div className={`${isMobileExpanded ? 'flex' : 'hidden lg:flex'} flex-col gap-2`}>
         {lessons.map((lesson) => {
           const isSelected = lesson.id === currentLessonId;
           const progress = lessonProgress[lesson.id];
@@ -59,7 +71,10 @@ export const LevelSidebar: React.FC<LevelSidebarProps> = ({
             >
               {/* Level Header Button */}
               <button
-                onClick={() => onSelectLesson(lesson.id)}
+                onClick={() => {
+                  onSelectLesson(lesson.id);
+                  setIsMobileExpanded(false);
+                }}
                 className="w-full text-left p-2.5 flex items-start justify-between gap-2"
               >
                 <div className="flex-1 min-w-0">
@@ -125,7 +140,10 @@ export const LevelSidebar: React.FC<LevelSidebarProps> = ({
                       return (
                         <button
                           key={idx}
-                          onClick={() => onSelectExercise(idx)}
+                          onClick={() => {
+                            onSelectExercise(idx);
+                            setIsMobileExpanded(false);
+                          }}
                           className={`px-2 py-1 rounded-lg text-[10px] font-semibold text-center transition-all ${
                             isCurrentEx
                               ? 'bg-sky-500 text-white shadow-xs'

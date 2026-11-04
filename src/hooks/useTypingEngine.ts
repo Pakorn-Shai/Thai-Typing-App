@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { CharDetail, TypingStats, SoundProfile } from '../types/typing';
+import { CharDetail, TypingStats, SoundProfile, SpeedSnapshot } from '../types/typing';
 import { splitIntoCharacters, normalizeThaiText } from '../utils/thaiTokenizer';
 import { calculateCpm, calculateWpm, calculateAccuracy } from '../utils/metrics';
 import { soundManager } from '../utils/sound';
@@ -29,6 +29,7 @@ export function useTypingEngine({
   const [totalTyped, setTotalTyped] = useState(0);
   const [mistakeKeys, setMistakeKeys] = useState<Record<string, number>>({});
   const [charDetails, setCharDetails] = useState<CharDetail[]>([]);
+  const [timeline, setTimeline] = useState<SpeedSnapshot[]>([]);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
 
@@ -56,9 +57,33 @@ export function useTypingEngine({
     setIncorrectCount(0);
     setTotalTyped(0);
     setMistakeKeys({});
+    setTimeline([]);
     setIsCompleted(false);
     setIsStarted(false);
   }, [text]);
+
+  // Track speed timeline snapshots
+  useEffect(() => {
+    if (isStarted && !isCompleted && elapsedSeconds > 0) {
+      const cpm = calculateCpm(correctCount, elapsedSeconds);
+      const wpm = calculateWpm(cpm);
+      setTimeline((prev) => {
+        // avoid duplicate second entries
+        if (prev.length > 0 && prev[prev.length - 1].second === elapsedSeconds) {
+          return prev;
+        }
+        return [
+          ...prev,
+          {
+            second: elapsedSeconds,
+            cpm,
+            wpm,
+            mistakes: incorrectCount,
+          },
+        ];
+      });
+    }
+  }, [elapsedSeconds, isStarted, isCompleted, correctCount, incorrectCount]);
 
   // Current expected character
   const currentChar = useMemo(() => {
@@ -167,8 +192,9 @@ export function useTypingEngine({
       elapsedSeconds,
       mistakesMap: mistakeKeys,
       timeRemaining,
+      timeline,
     };
-  }, [correctCount, incorrectCount, totalTyped, elapsedSeconds, mistakeKeys, timeRemaining]);
+  }, [correctCount, incorrectCount, totalTyped, elapsedSeconds, mistakeKeys, timeRemaining, timeline]);
 
   const resetEngine = useCallback(() => {
     const chars = splitIntoCharacters(text);
@@ -178,6 +204,7 @@ export function useTypingEngine({
     setIncorrectCount(0);
     setTotalTyped(0);
     setMistakeKeys({});
+    setTimeline([]);
     setIsCompleted(false);
     setIsStarted(false);
   }, [text]);

@@ -10,8 +10,10 @@ import {
   Volume1,
   ChevronDown,
   Sliders,
+  Play,
 } from 'lucide-react';
 import { Language, SoundProfile } from '../../types/typing';
+import { soundManager } from '../../utils/sound';
 
 interface HeaderProps {
   language: Language;
@@ -53,6 +55,17 @@ export const Header: React.FC<HeaderProps> = ({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handlePreviewSound = (p: SoundProfile, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (p === 'off') return;
+    const oldP = soundManager.getProfile();
+    soundManager.setProfile(p);
+    soundManager.playClick();
+    setTimeout(() => soundManager.playClick(), 110);
+    setTimeout(() => soundManager.playClick(), 220);
+    setTimeout(() => soundManager.setProfile(oldP), 300);
+  };
 
   const soundProfiles: { id: SoundProfile; label: string; desc: string }[] = [
     { id: 'clicky', label: 'Clicky (Blue Switch)', desc: 'เสียงคมชัด แบบบลูสวิตช์' },
@@ -178,7 +191,7 @@ export const Header: React.FC<HeaderProps> = ({
                 {soundProfiles.map((p) => {
                   const isSelected = soundProfile === p.id;
                   return (
-                    <button
+                    <div
                       key={p.id}
                       onClick={() => {
                         onSoundProfileChange(p.id);
@@ -186,17 +199,29 @@ export const Header: React.FC<HeaderProps> = ({
                           onSoundVolumeChange(0.8);
                         }
                       }}
-                      className={`w-full text-left px-3 py-2 rounded-xl text-xs flex flex-col gap-0.5 transition-all ${
+                      className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-all cursor-pointer ${
                         isSelected
                           ? 'bg-sky-500/10 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300 font-semibold'
                           : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800/80 dark:hover:text-white'
                       }`}
                     >
-                      <span>{p.label}</span>
-                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal">
-                        {p.desc}
-                      </span>
-                    </button>
+                      <div className="flex flex-col gap-0.5">
+                        <span>{p.label}</span>
+                        <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal">
+                          {p.desc}
+                        </span>
+                      </div>
+
+                      {p.id !== 'off' && (
+                        <button
+                          onClick={(e) => handlePreviewSound(p.id, e)}
+                          className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-sky-500 transition-all shrink-0 ml-2"
+                          title="ทดสอบฟังเสียง"
+                        >
+                          <Play className="w-3 h-3 fill-current" />
+                        </button>
+                      )}
+                    </div>
                   );
                 })}
               </div>

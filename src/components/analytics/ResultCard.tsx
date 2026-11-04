@@ -13,6 +13,7 @@ import {
   Download,
   Image as ImageIcon,
   Star,
+  TrendingUp,
 } from 'lucide-react';
 import { TypingStats, Language } from '../../types/typing';
 import { formatTime } from '../../utils/metrics';
@@ -109,6 +110,26 @@ export const ResultCard: React.FC<ResultCardProps> = ({
 
   const starsCount = getStars(stats.cpm, stats.accuracy);
   const rating = getSpeedRating(stats.cpm);
+
+  // SVG Chart Calculation for timeline
+  const timeline = stats.timeline || [];
+  const hasTimeline = timeline.length >= 2;
+  const maxCpm = Math.max(...timeline.map((t) => t.cpm), stats.cpm, 100);
+  const totalSeconds = Math.max(timeline[timeline.length - 1]?.second || stats.elapsedSeconds, 1);
+
+  const chartW = 600;
+  const chartH = 140;
+  const padX = 35;
+  const padY = 20;
+
+  const points = timeline.map((t) => {
+    const x = padX + (t.second / totalSeconds) * (chartW - padX * 2);
+    const y = chartH - padY - (t.cpm / maxCpm) * (chartH - padY * 2);
+    return { x, y, cpm: t.cpm, second: t.second, mistakes: t.mistakes };
+  });
+
+  const svgPath = points.length > 0 ? points.reduce((acc, p, idx) => `${acc} ${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`, '') : '';
+  const areaPath = points.length > 0 ? `${svgPath} L ${points[points.length - 1].x} ${chartH - padY} L ${points[0].x} ${chartH - padY} Z` : '';
 
   return (
     <div className="w-full bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col gap-6 animate-pop transition-colors">
@@ -260,6 +281,64 @@ export const ResultCard: React.FC<ResultCardProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Real-time Speed Timeline Curve (SVG) */}
+      {hasTimeline && (
+        <div className="bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-4 flex flex-col gap-2">
+          <div className="flex items-center justify-between text-xs text-slate-700 dark:text-slate-300 font-semibold">
+            <div className="flex items-center gap-1.5 text-sky-600 dark:text-sky-400">
+              <TrendingUp className="w-4 h-4" />
+              <span>{language === 'th' ? 'เส้นกราฟความเร็วตลอดการพิมพ์ (CPM Timeline)' : 'Speed Trajectory'}</span>
+            </div>
+            <span className="text-[11px] text-slate-500 font-normal">
+              Peak: {Math.max(...timeline.map((t) => t.cpm))} CPM
+            </span>
+          </div>
+
+          <div className="w-full overflow-hidden">
+            <svg viewBox={`0 0 ${chartW} ${chartH}`} className="w-full h-32 overflow-visible">
+              <defs>
+                <linearGradient id="cpmGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#0284c7" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#0284c7" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
+
+              {/* Grid guide lines */}
+              <line x1={padX} y1={padY} x2={chartW - padX} y2={padY} stroke="currentColor" className="text-slate-200 dark:text-slate-800/80" strokeDasharray="3 3" />
+              <line x1={padX} y1={chartH / 2} x2={chartW - padX} y2={chartH / 2} stroke="currentColor" className="text-slate-200 dark:text-slate-800/80" strokeDasharray="3 3" />
+              <line x1={padX} y1={chartH - padY} x2={chartW - padX} y2={chartH - padY} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+
+              {/* Area Under Curve */}
+              {areaPath && <path d={areaPath} fill="url(#cpmGrad)" />}
+
+              {/* Main Line */}
+              {svgPath && (
+                <path
+                  d={svgPath}
+                  fill="none"
+                  stroke="#0ea5e9"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              )}
+
+              {/* Data points */}
+              {points.map((p, idx) => (
+                <circle
+                  key={idx}
+                  cx={p.x}
+                  cy={p.y}
+                  r="3.5"
+                  className="fill-sky-500 stroke-white dark:stroke-slate-900"
+                  strokeWidth="1.5"
+                />
+              ))}
+            </svg>
+          </div>
+        </div>
+      )}
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-2">
