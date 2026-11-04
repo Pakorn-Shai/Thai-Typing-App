@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   Trophy,
-  Trash2,
   Sparkles,
 } from 'lucide-react';
 import { LeaderboardEntry, Language } from '../../types/typing';
@@ -9,17 +8,14 @@ import { LeaderboardEntry, Language } from '../../types/typing';
 interface LeaderboardSectionProps {
   entries: LeaderboardEntry[];
   language: Language;
-  onClearLeaderboard?: () => void;
 }
 
 export const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({
   entries,
   language,
-  onClearLeaderboard,
 }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(language);
   const [selectedDuration, setSelectedDuration] = useState<number | 'all'>('all');
-  const [isConfirmClear, setIsConfirmClear] = useState(false);
 
   // Sync selected language tab with parent language change
   useEffect(() => {
@@ -103,40 +99,6 @@ export const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({
               </p>
             </div>
           </div>
-
-          {/* Clear Leaderboard Action Button */}
-          {entries.length > 0 && onClearLeaderboard && (
-            <div className="relative self-end sm:self-center">
-              {isConfirmClear ? (
-                <div className="flex items-center gap-1.5 animate-pop">
-                  <button
-                    onClick={() => {
-                      onClearLeaderboard();
-                      setIsConfirmClear(false);
-                    }}
-                    className="px-2.5 py-1 rounded-lg bg-rose-500 text-white text-[11px] font-bold hover:bg-rose-600 transition-colors shadow-xs"
-                  >
-                    {language === 'th' ? 'ยืนยันลบ' : 'Confirm'}
-                  </button>
-                  <button
-                    onClick={() => setIsConfirmClear(false)}
-                    className="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-medium"
-                  >
-                    {language === 'th' ? 'ยกเลิก' : 'Cancel'}
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setIsConfirmClear(true)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 transition-colors flex items-center gap-1 text-xs"
-                  title={language === 'th' ? 'ล้างสถิติกระดานผู้นำ' : 'Clear leaderboard'}
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline text-[11px]">{language === 'th' ? 'ล้างสถิติ' : 'Clear'}</span>
-                </button>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Dual Filter Bars: Language Separation & Duration Pills */}

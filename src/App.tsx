@@ -483,7 +483,6 @@ export function App() {
                 <LeaderboardSection
                   entries={leaderboard}
                   language={language}
-                  onClearLeaderboard={() => setLeaderboard([])}
                 />
               </div>
             )}
