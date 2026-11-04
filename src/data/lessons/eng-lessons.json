@@ -1,0 +1,77 @@
+[
+  {
+    "id": "en-level-1",
+    "level": 1,
+    "title": "Level 1: Home Row",
+    "titleEn": "Level 1: English Home Row",
+    "description": "Master the foundation fingers: a s d f j k l ;",
+    "targetKeys": ["a", "s", "d", "f", "j", "k", "l", ";"],
+    "exercises": [
+      "asdf jkl; asdf jkl;",
+      "ask all dad fall salad flask",
+      "sad lad glad fall flash salads",
+      "a flask of fall salad for dad",
+      "all lads ask for a glad dad"
+    ]
+  },
+  {
+    "id": "en-level-2",
+    "level": 2,
+    "title": "Level 2: Top Row",
+    "titleEn": "Level 2: English Top Row",
+    "description": "Reach up smoothly: q w e r t y u i o p",
+    "targetKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+    "exercises": [
+      "qwert yuiop qwert yuiop",
+      "tree true write port report quit",
+      "water power write polite quote tower",
+      "we write top quality papers every year",
+      "quick thinkers quietly perform tricky tasks"
+    ]
+  },
+  {
+    "id": "en-level-3",
+    "level": 3,
+    "title": "Level 3: Bottom Row",
+    "titleEn": "Level 3: English Bottom Row",
+    "description": "Step down with precision: z x c v b n m , . /",
+    "targetKeys": ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
+    "exercises": [
+      "zxcvb nm,./ zxcvb nm,./",
+      "can van man back zinc next move calm",
+      "mix come zoom ban zone brave calm",
+      "pack my box with five dozen liquor jugs.",
+      "the quick brown fox jumps over the lazy dog."
+    ]
+  },
+  {
+    "id": "en-level-4",
+    "level": 4,
+    "title": "Level 4: Numbers & Symbols",
+    "titleEn": "Level 4: Numbers & Symbols",
+    "description": "Shift keys, numbers, and punctuation marks",
+    "targetKeys": ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    "exercises": [
+      "Item #1 costs $25.50 (with 10% discount)!",
+      "Plan: Step 1 -> Step 2 -> Success & Joy!",
+      "Email: user@example.com [ID: 987-654-321]",
+      "The equation is: (x + y) * 2 = 100%!"
+    ]
+  },
+  {
+    "id": "en-level-5",
+    "level": 5,
+    "title": "Level 5: Speed & Flow (Common Words)",
+    "titleEn": "Level 5: English Paragraphs",
+    "description": "Continuous typing for natural speed and rhythm",
+    "targetKeys": ["All Keys"],
+    "exercises": [
+      "Practice makes perfect when you type consistently every day.",
+      "Speed is a byproduct of accuracy; focus on precision first.",
+      "Consistency and good posture will make typing feel effortless.",
+      "Technology empowers people to create, communicate, and solve difficult problems together.",
+      "Every journey of a thousand miles begins with a single confident step."
+    ]
+  }
+]
+

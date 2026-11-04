@@ -1,0 +1,239 @@
+{
+  "kedmanee": {
+    "name": "เกษมณี (Kedmanee)",
+    "rows": [
+      {
+        "keys": [
+          { "code": "Backquote", "normal": "_", "shift": "%", "finger": "left-pinky" },
+          { "code": "Digit1", "normal": "ๅ", "shift": "+", "finger": "left-pinky" },
+          { "code": "Digit2", "normal": "/", "shift": "๑", "finger": "left-ring" },
+          { "code": "Digit3", "normal": "-", "shift": "๒", "finger": "left-middle" },
+          { "code": "Digit4", "normal": "ภ", "shift": "๓", "finger": "left-index" },
+          { "code": "Digit5", "normal": "ถ", "shift": "๔", "finger": "left-index" },
+          { "code": "Digit6", "normal": "ุ", "shift": "ู", "finger": "right-index" },
+          { "code": "Digit7", "normal": "ึ", "shift": "฿", "finger": "right-index" },
+          { "code": "Digit8", "normal": "ค", "shift": "๕", "finger": "right-middle" },
+          { "code": "Digit9", "normal": "ต", "shift": "๖", "finger": "right-ring" },
+          { "code": "Digit0", "normal": "จ", "shift": "๗", "finger": "right-pinky" },
+          { "code": "Minus", "normal": "ข", "shift": "๘", "finger": "right-pinky" },
+          { "code": "Equal", "normal": "ช", "shift": "๙", "finger": "right-pinky" },
+          { "code": "Backspace", "normal": "⌫", "shift": "⌫", "finger": "right-pinky", "width": "w-16" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "Tab", "normal": "Tab", "shift": "Tab", "finger": "left-pinky", "width": "w-14" },
+          { "code": "KeyQ", "normal": "ๆ", "shift": "๐", "finger": "left-pinky" },
+          { "code": "KeyW", "normal": "ไ", "shift": "\"", "finger": "left-ring" },
+          { "code": "KeyE", "normal": "ำ", "shift": "ฎ", "finger": "left-middle" },
+          { "code": "KeyR", "normal": "พ", "shift": "ฑ", "finger": "left-index" },
+          { "code": "KeyT", "normal": "ะ", "shift": "ธ", "finger": "left-index" },
+          { "code": "KeyY", "normal": "ั", "shift": "ํ", "finger": "right-index" },
+          { "code": "KeyU", "normal": "ี", "shift": "๊", "finger": "right-index" },
+          { "code": "KeyI", "normal": "ร", "shift": "ณ", "finger": "right-middle" },
+          { "code": "KeyO", "normal": "น", "shift": "ฯ", "finger": "right-ring" },
+          { "code": "KeyP", "normal": "ย", "shift": "ญ", "finger": "right-pinky" },
+          { "code": "BracketLeft", "normal": "บ", "shift": "ฐ", "finger": "right-pinky" },
+          { "code": "BracketRight", "normal": "ล", "shift": ",", "finger": "right-pinky" },
+          { "code": "Backslash", "normal": "ฃ", "shift": "ฅ", "finger": "right-pinky", "width": "w-12" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "CapsLock", "normal": "Caps", "shift": "Caps", "finger": "left-pinky", "width": "w-16" },
+          { "code": "KeyA", "normal": "ฟ", "shift": "ฤ", "finger": "left-pinky", "isHome": true },
+          { "code": "KeyS", "normal": "ห", "shift": "ฆ", "finger": "left-ring", "isHome": true },
+          { "code": "KeyD", "normal": "ก", "shift": "ฏ", "finger": "left-middle", "isHome": true },
+          { "code": "KeyF", "normal": "ด", "shift": "โ", "finger": "left-index", "isHome": true },
+          { "code": "KeyG", "normal": "เ", "shift": "ฌ", "finger": "left-index" },
+          { "code": "KeyH", "normal": "้", "shift": "็", "finger": "right-index" },
+          { "code": "KeyJ", "normal": "่", "shift": "๋", "finger": "right-index", "isHome": true },
+          { "code": "KeyK", "normal": "า", "shift": "ษ", "finger": "right-middle", "isHome": true },
+          { "code": "KeyL", "normal": "ส", "shift": "ศ", "finger": "right-ring", "isHome": true },
+          { "code": "Semicolon", "normal": "ว", "shift": "ซ", "finger": "right-pinky", "isHome": true },
+          { "code": "Quote", "normal": "ง", "shift": ".", "finger": "right-pinky" },
+          { "code": "Enter", "normal": "Enter", "shift": "Enter", "finger": "right-pinky", "width": "w-20" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "ShiftLeft", "normal": "Shift", "shift": "Shift", "finger": "left-pinky", "width": "w-20" },
+          { "code": "KeyZ", "normal": "ผ", "shift": "(", "finger": "left-pinky" },
+          { "code": "KeyX", "normal": "ป", "shift": ")", "finger": "left-ring" },
+          { "code": "KeyC", "normal": "แ", "shift": "ฉ", "finger": "left-middle" },
+          { "code": "KeyV", "normal": "อ", "shift": "ฮ", "finger": "left-index" },
+          { "code": "KeyB", "normal": "ิ", "shift": "ฺ", "finger": "left-index" },
+          { "code": "KeyN", "normal": "ื", "shift": "์", "finger": "right-index" },
+          { "code": "KeyM", "normal": "ท", "shift": "?", "finger": "right-index" },
+          { "code": "Comma", "normal": "ม", "shift": "ฒ", "finger": "right-middle" },
+          { "code": "Period", "normal": "ใ", "shift": "ฬ", "finger": "right-ring" },
+          { "code": "Slash", "normal": "ฝ", "shift": "ฦ", "finger": "right-pinky" },
+          { "code": "ShiftRight", "normal": "Shift", "shift": "Shift", "finger": "right-pinky", "width": "w-24" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "Space", "normal": "Space", "shift": "Space", "finger": "thumb", "width": "w-72" }
+        ]
+      }
+    ]
+  },
+  "pattachote": {
+    "name": "ปัตตะโชติ (Pattachote)",
+    "rows": [
+      {
+        "keys": [
+          { "code": "Backquote", "normal": "_", "shift": "%", "finger": "left-pinky" },
+          { "code": "Digit1", "normal": "๑", "shift": "+", "finger": "left-pinky" },
+          { "code": "Digit2", "normal": "๒", "shift": "\"", "finger": "left-ring" },
+          { "code": "Digit3", "normal": "๓", "shift": "/", "finger": "left-middle" },
+          { "code": "Digit4", "normal": "๔", "shift": ",", "finger": "left-index" },
+          { "code": "Digit5", "normal": "๕", "shift": "?", "finger": "left-index" },
+          { "code": "Digit6", "normal": "ู", "shift": "ุ", "finger": "right-index" },
+          { "code": "Digit7", "normal": "๗", "shift": "_", "finger": "right-index" },
+          { "code": "Digit8", "normal": "๘", "shift": ".", "finger": "right-middle" },
+          { "code": "Digit9", "normal": "๙", "shift": "(", "finger": "right-ring" },
+          { "code": "Digit0", "normal": "๐", "shift": ")", "finger": "right-pinky" },
+          { "code": "Minus", "normal": "ข", "shift": "-", "finger": "right-pinky" },
+          { "code": "Equal", "normal": "ช", "shift": "~", "finger": "right-pinky" },
+          { "code": "Backspace", "normal": "⌫", "shift": "⌫", "finger": "right-pinky", "width": "w-16" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "Tab", "normal": "Tab", "shift": "Tab", "finger": "left-pinky", "width": "w-14" },
+          { "code": "KeyQ", "normal": "็", "shift": "ํ", "finger": "left-pinky" },
+          { "code": "KeyW", "normal": "ต", "shift": "ฤ", "finger": "left-ring" },
+          { "code": "KeyE", "normal": "ย", "shift": "ๆ", "finger": "left-middle" },
+          { "code": "KeyR", "normal": "อ", "shift": "ญ", "finger": "left-index" },
+          { "code": "KeyT", "normal": "ร", "shift": "ษ", "finger": "left-index" },
+          { "code": "KeyY", "normal": "่", "shift": "ึ", "finger": "right-index" },
+          { "code": "KeyU", "normal": "ด", "shift": "ผ", "finger": "right-index" },
+          { "code": "KeyI", "normal": "ม", "shift": "ถ", "finger": "right-middle" },
+          { "code": "KeyO", "normal": "ว", "shift": "ซ", "finger": "right-ring" },
+          { "code": "KeyP", "normal": "แ", "shift": "ฐ", "finger": "right-pinky" },
+          { "code": "BracketLeft", "normal": "ใ", "shift": "ฎ", "finger": "right-pinky" },
+          { "code": "BracketRight", "normal": "ฌ", "shift": "ฑ", "finger": "right-pinky" },
+          { "code": "Backslash", "normal": "ฃ", "shift": "ฅ", "finger": "right-pinky", "width": "w-12" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "CapsLock", "normal": "Caps", "shift": "Caps", "finger": "left-pinky", "width": "w-16" },
+          { "code": "KeyA", "normal": "้", "shift": "ธ", "finger": "left-pinky" },
+          { "code": "KeyS", "normal": "ท", "shift": "ำ", "finger": "left-ring" },
+          { "code": "KeyD", "normal": "ง", "shift": "ณ", "finger": "left-middle" },
+          { "code": "KeyF", "normal": "ก", "shift": "์", "finger": "left-index", "isHome": true },
+          { "code": "KeyG", "normal": "ั", "shift": "ฯ", "finger": "left-index" },
+          { "code": "KeyH", "normal": "ี", "shift": "พ", "finger": "right-index" },
+          { "code": "KeyJ", "normal": "า", "shift": "ส", "finger": "right-index", "isHome": true },
+          { "code": "KeyK", "normal": "น", "shift": "บ", "finger": "right-middle" },
+          { "code": "KeyL", "normal": "เ", "shift": "ป", "finger": "right-ring" },
+          { "code": "Semicolon", "normal": "ไ", "shift": "ฟ", "finger": "right-pinky" },
+          { "code": "Quote", "normal": "ข", "shift": "ล", "finger": "right-pinky" },
+          { "code": "Enter", "normal": "Enter", "shift": "Enter", "finger": "right-pinky", "width": "w-20" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "ShiftLeft", "normal": "Shift", "shift": "Shift", "finger": "left-pinky", "width": "w-20" },
+          { "code": "KeyZ", "normal": "บ", "shift": "โ", "finger": "left-pinky" },
+          { "code": "KeyX", "normal": "ป", "shift": "ภ", "finger": "left-ring" },
+          { "code": "KeyC", "normal": "ล", "shift": "ฒ", "finger": "left-middle" },
+          { "code": "KeyV", "normal": "ห", "shift": "ฬ", "finger": "left-index" },
+          { "code": "KeyB", "normal": "ิ", "shift": "ฮ", "finger": "left-index" },
+          { "code": "KeyN", "normal": "ค", "shift": "ฉ", "finger": "right-index" },
+          { "code": "KeyM", "normal": "ส", "shift": "ฝ", "finger": "right-index" },
+          { "code": "Comma", "normal": "ะ", "shift": "ศ", "finger": "right-middle" },
+          { "code": "Period", "normal": "จ", "shift": "ฐ", "finger": "right-ring" },
+          { "code": "Slash", "normal": "พ", "shift": "ฒ", "finger": "right-pinky" },
+          { "code": "ShiftRight", "normal": "Shift", "shift": "Shift", "finger": "right-pinky", "width": "w-24" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "Space", "normal": "Space", "shift": "Space", "finger": "thumb", "width": "w-72" }
+        ]
+      }
+    ]
+  },
+  "qwerty": {
+    "name": "QWERTY (English)",
+    "rows": [
+      {
+        "keys": [
+          { "code": "Backquote", "normal": "`", "shift": "~", "finger": "left-pinky" },
+          { "code": "Digit1", "normal": "1", "shift": "!", "finger": "left-pinky" },
+          { "code": "Digit2", "normal": "2", "shift": "@", "finger": "left-ring" },
+          { "code": "Digit3", "normal": "3", "shift": "#", "finger": "left-middle" },
+          { "code": "Digit4", "normal": "4", "shift": "$", "finger": "left-index" },
+          { "code": "Digit5", "normal": "5", "shift": "%", "finger": "left-index" },
+          { "code": "Digit6", "normal": "6", "shift": "^", "finger": "right-index" },
+          { "code": "Digit7", "normal": "7", "shift": "&", "finger": "right-index" },
+          { "code": "Digit8", "normal": "8", "shift": "*", "finger": "right-middle" },
+          { "code": "Digit9", "normal": "9", "shift": "(", "finger": "right-ring" },
+          { "code": "Digit0", "normal": "0", "shift": ")", "finger": "right-pinky" },
+          { "code": "Minus", "normal": "-", "shift": "_", "finger": "right-pinky" },
+          { "code": "Equal", "normal": "=", "shift": "+", "finger": "right-pinky" },
+          { "code": "Backspace", "normal": "⌫", "shift": "⌫", "finger": "right-pinky", "width": "w-16" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "Tab", "normal": "Tab", "shift": "Tab", "finger": "left-pinky", "width": "w-14" },
+          { "code": "KeyQ", "normal": "q", "shift": "Q", "finger": "left-pinky" },
+          { "code": "KeyW", "normal": "w", "shift": "W", "finger": "left-ring" },
+          { "code": "KeyE", "normal": "e", "shift": "E", "finger": "left-middle" },
+          { "code": "KeyR", "normal": "r", "shift": "R", "finger": "left-index" },
+          { "code": "KeyT", "normal": "t", "shift": "T", "finger": "left-index" },
+          { "code": "KeyY", "normal": "y", "shift": "Y", "finger": "right-index" },
+          { "code": "KeyU", "normal": "u", "shift": "U", "finger": "right-index" },
+          { "code": "KeyI", "normal": "i", "shift": "I", "finger": "right-middle" },
+          { "code": "KeyO", "normal": "o", "shift": "O", "finger": "right-ring" },
+          { "code": "KeyP", "normal": "p", "shift": "P", "finger": "right-pinky" },
+          { "code": "BracketLeft", "normal": "[", "shift": "{", "finger": "right-pinky" },
+          { "code": "BracketRight", "normal": "]", "shift": "}", "finger": "right-pinky" },
+          { "code": "Backslash", "normal": "\\", "shift": "|", "finger": "right-pinky", "width": "w-12" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "CapsLock", "normal": "Caps", "shift": "Caps", "finger": "left-pinky", "width": "w-16" },
+          { "code": "KeyA", "normal": "a", "shift": "A", "finger": "left-pinky", "isHome": true },
+          { "code": "KeyS", "normal": "s", "shift": "S", "finger": "left-ring", "isHome": true },
+          { "code": "KeyD", "normal": "d", "shift": "D", "finger": "left-middle", "isHome": true },
+          { "code": "KeyF", "normal": "f", "shift": "F", "finger": "left-index", "isHome": true },
+          { "code": "KeyG", "normal": "g", "shift": "G", "finger": "left-index" },
+          { "code": "KeyH", "normal": "h", "shift": "H", "finger": "right-index" },
+          { "code": "KeyJ", "normal": "j", "shift": "J", "finger": "right-index", "isHome": true },
+          { "code": "KeyK", "normal": "k", "shift": "K", "finger": "right-middle", "isHome": true },
+          { "code": "KeyL", "normal": "l", "shift": "L", "finger": "right-ring", "isHome": true },
+          { "code": "Semicolon", "normal": ";", "shift": ":", "finger": "right-pinky", "isHome": true },
+          { "code": "Quote", "normal": "'", "shift": "\"", "finger": "right-pinky" },
+          { "code": "Enter", "normal": "Enter", "shift": "Enter", "finger": "right-pinky", "width": "w-20" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "ShiftLeft", "normal": "Shift", "shift": "Shift", "finger": "left-pinky", "width": "w-20" },
+          { "code": "KeyZ", "normal": "z", "shift": "Z", "finger": "left-pinky" },
+          { "code": "KeyX", "normal": "x", "shift": "X", "finger": "left-ring" },
+          { "code": "KeyC", "normal": "c", "shift": "C", "finger": "left-middle" },
+          { "code": "KeyV", "normal": "v", "shift": "V", "finger": "left-index" },
+          { "code": "KeyB", "normal": "b", "shift": "B", "finger": "left-index" },
+          { "code": "KeyN", "normal": "n", "shift": "N", "finger": "right-index" },
+          { "code": "KeyM", "normal": "m", "shift": "M", "finger": "right-index" },
+          { "code": "Comma", "normal": ",", "shift": "<", "finger": "right-middle" },
+          { "code": "Period", "normal": ".", "shift": ">", "finger": "right-ring" },
+          { "code": "Slash", "normal": "/", "shift": "?", "finger": "right-pinky" },
+          { "code": "ShiftRight", "normal": "Shift", "shift": "Shift", "finger": "right-pinky", "width": "w-24" }
+        ]
+      },
+      {
+        "keys": [
+          { "code": "Space", "normal": "Space", "shift": "Space", "finger": "thumb", "width": "w-72" }
+        ]
+      }
+    ]
+  }
+}
