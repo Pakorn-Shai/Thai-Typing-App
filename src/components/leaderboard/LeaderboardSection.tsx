@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Trophy,
   Trash2,
@@ -17,12 +17,28 @@ export const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({
   language,
   onClearLeaderboard,
 }) => {
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(language);
   const [selectedDuration, setSelectedDuration] = useState<number | 'all'>('all');
   const [isConfirmClear, setIsConfirmClear] = useState(false);
 
-  // Filter and sort entries: Highest WPM first, then highest Accuracy, then most recent
+  // Sync selected language tab with parent language change
+  useEffect(() => {
+    setSelectedLanguage(language);
+  }, [language]);
+
+  // Count entries by language
+  const thaiEntriesCount = useMemo(
+    () => entries.filter((item) => (item.language || 'th') === 'th').length,
+    [entries]
+  );
+  const engEntriesCount = useMemo(
+    () => entries.filter((item) => item.language === 'en').length,
+    [entries]
+  );
+
+  // Filter and sort entries: Filter by language and duration, sort by highest WPM, Accuracy, then timestamp
   const top10 = useMemo(() => {
-    let list = [...entries];
+    let list = entries.filter((item) => (item.language || 'th') === selectedLanguage);
 
     if (selectedDuration !== 'all') {
       list = list.filter((item) => item.durationSeconds === selectedDuration);
@@ -35,7 +51,7 @@ export const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({
     });
 
     return list.slice(0, 10);
-  }, [entries, selectedDuration]);
+  }, [entries, selectedLanguage, selectedDuration]);
 
   const formatDate = (isoString: string) => {
     try {
@@ -62,32 +78,106 @@ export const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({
   return (
     <section className="w-full bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 sm:p-7 shadow-sm transition-colors flex flex-col gap-6">
       {/* Header and Filter Controls */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-xs">
-            <Trophy className="w-6 h-6 text-amber-500" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                {language === 'th' ? 'กระดานผู้นำ Top 10 (Timed Test)' : 'Top 10 Leaderboard (Timed Test)'}
-              </h2>
-              <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                <Sparkles className="w-3 h-3" />
-                Top 10
-              </span>
+      <div className="flex flex-col gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-xs">
+              <Trophy className="w-6 h-6 text-amber-500" />
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              {language === 'th'
-                ? 'จัดอันดับคะแนนสูงสุดเฉพาะโหมดทดสอบจับเวลา (Timed Mode)'
-                : 'Highest typing speeds recorded exclusively in Timed Test mode'}
-            </p>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                  {language === 'th'
+                    ? `กระดานผู้นำ Top 10 (${selectedLanguage === 'th' ? 'ภาษาไทย' : 'ภาษาอังกฤษ'})`
+                    : `Top 10 Leaderboard (${selectedLanguage === 'th' ? 'Thai' : 'English'})`}
+                </h2>
+                <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                  <Sparkles className="w-3 h-3" />
+                  Top 10
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {language === 'th'
+                  ? 'จัดอันดับสถิติสูงสุดเฉพาะโหมดทดสอบจับเวลา (Timed Test) แยกตามภาษา'
+                  : 'Highest typing speeds recorded exclusively in Timed Test mode, separated by language'}
+              </p>
+            </div>
           </div>
+
+          {/* Clear Leaderboard Action Button */}
+          {entries.length > 0 && onClearLeaderboard && (
+            <div className="relative self-end sm:self-center">
+              {isConfirmClear ? (
+                <div className="flex items-center gap-1.5 animate-pop">
+                  <button
+                    onClick={() => {
+                      onClearLeaderboard();
+                      setIsConfirmClear(false);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-rose-500 text-white text-[11px] font-bold hover:bg-rose-600 transition-colors shadow-xs"
+                  >
+                    {language === 'th' ? 'ยืนยันลบ' : 'Confirm'}
+                  </button>
+                  <button
+                    onClick={() => setIsConfirmClear(false)}
+                    className="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-medium"
+                  >
+                    {language === 'th' ? 'ยกเลิก' : 'Cancel'}
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsConfirmClear(true)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 transition-colors flex items-center gap-1 text-xs"
+                  title={language === 'th' ? 'ล้างสถิติกระดานผู้นำ' : 'Clear leaderboard'}
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline text-[11px]">{language === 'th' ? 'ล้างสถิติ' : 'Clear'}</span>
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Duration Filter Pills & Clear Action */}
-        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-          <div className="flex items-center p-1 bg-slate-100 dark:bg-slate-950 rounded-xl border border-slate-200/80 dark:border-slate-800 text-xs font-semibold">
+        {/* Dual Filter Bars: Language Separation & Duration Pills */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-800/60">
+          {/* 1. Language Toggle Tabs (Thai 🇹🇭 vs English 🇬🇧) */}
+          <div className="flex items-center p-1 bg-slate-100 dark:bg-slate-950 rounded-xl border border-slate-200/80 dark:border-slate-800 text-xs font-bold">
+            <button
+              onClick={() => setSelectedLanguage('th')}
+              className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg transition-all ${
+                selectedLanguage === 'th'
+                  ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-300 shadow-xs ring-1 ring-sky-500/30 font-bold'
+                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <span>🇹🇭 ภาษาไทย (Thai Top 10)</span>
+              {thaiEntriesCount > 0 && (
+                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400">
+                  {thaiEntriesCount}
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => setSelectedLanguage('en')}
+              className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg transition-all ${
+                selectedLanguage === 'en'
+                  ? 'bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-300 shadow-xs ring-1 ring-sky-500/30 font-bold'
+                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <span>🇬🇧 English (English Top 10)</span>
+              {engEntriesCount > 0 && (
+                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400">
+                  {engEntriesCount}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* 2. Duration Filter Pills (All / 1 min / 3 min / 5 min) */}
+          <div className="flex items-center justify-center p-1 bg-slate-100 dark:bg-slate-950 rounded-xl border border-slate-200/80 dark:border-slate-800 text-xs font-semibold self-start sm:self-auto">
             <button
               onClick={() => setSelectedDuration('all')}
               className={`px-2.5 py-1 rounded-lg transition-all ${
@@ -129,38 +219,6 @@ export const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({
               5 {language === 'th' ? 'นาที' : 'min'}
             </button>
           </div>
-
-          {entries.length > 0 && onClearLeaderboard && (
-            <div className="relative">
-              {isConfirmClear ? (
-                <div className="flex items-center gap-1.5 animate-pop">
-                  <button
-                    onClick={() => {
-                      onClearLeaderboard();
-                      setIsConfirmClear(false);
-                    }}
-                    className="px-2.5 py-1 rounded-lg bg-rose-500 text-white text-[11px] font-bold hover:bg-rose-600 transition-colors shadow-xs"
-                  >
-                    {language === 'th' ? 'ยืนยันลบ' : 'Confirm'}
-                  </button>
-                  <button
-                    onClick={() => setIsConfirmClear(false)}
-                    className="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-medium"
-                  >
-                    {language === 'th' ? 'ยกเลิก' : 'Cancel'}
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setIsConfirmClear(true)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 transition-colors"
-                  title={language === 'th' ? 'ล้างกระดานผู้นำ' : 'Clear leaderboard'}
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-          )}
         </div>
       </div>
 
@@ -173,13 +231,13 @@ export const LeaderboardSection: React.FC<LeaderboardSectionProps> = ({
           <div className="max-w-xs">
             <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               {language === 'th'
-                ? 'ยังไม่มีสถิติในกระดานผู้นำ'
-                : 'No leaderboard records yet'}
+                ? `ยังไม่มีสถิติ Top 10 สำหรับ${selectedLanguage === 'th' ? 'ภาษาไทย 🇹🇭' : 'ภาษาอังกฤษ 🇬🇧'}`
+                : `No Top 10 records yet for ${selectedLanguage === 'th' ? 'Thai 🇹🇭' : 'English 🇬🇧'}`}
             </p>
             <p className="text-xs text-slate-400 mt-1">
               {language === 'th'
-                ? 'ทดสอบในโหมดจับเวลา (Timed Test) เพื่อบันทึกชื่อเป็นคนแรกใน Top 10!'
-                : 'Complete a Timed Test to secure your spot in the Top 10!'}
+                ? `ทดสอบในโหมดจับเวลา${selectedLanguage === 'th' ? 'ภาษาไทย' : 'ภาษาอังกฤษ'} เพื่อเป็นคนแรกที่ติดอันดับ!`
+                : `Complete a ${selectedLanguage === 'th' ? 'Thai' : 'English'} timed test to be the first!`}
             </p>
           </div>
         </div>
