@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { RotateCcw, MousePointerClick, Skull, Ghost } from 'lucide-react';
 import { CharDetail, Language } from '../../types/typing';
+import { isThaiCombiningMark } from '../../utils/thaiTokenizer';
 
 interface TypingAreaProps {
   charDetails: CharDetail[];
@@ -207,6 +208,8 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
                 : 'text-slate-400 dark:text-slate-500';
             }
 
+            const isCombining = isThaiCombiningMark(item.char);
+
             // Display space character visually
             const displayChar =
               item.char === ' ' ? (isCurrent ? '␣' : '\u00A0') : item.char;
@@ -215,7 +218,9 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
               <span
                 key={index}
                 ref={isCurrent ? activeCharRef : null}
-                className={`inline-block transition-colors duration-100 ${charClass}`}
+                className={`inline-block transition-colors duration-100 ${
+                  isCombining ? 'min-w-[0.9em] text-center' : ''
+                } ${charClass}`}
               >
                 {displayChar}
               </span>
