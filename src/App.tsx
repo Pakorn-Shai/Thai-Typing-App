@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { ModeSelector } from './components/selector/ModeSelector';
+import { LevelSidebar } from './components/selector/LevelSidebar';
 import { MetricBar } from './components/typing/MetricBar';
 import { TypingArea } from './components/typing/TypingArea';
 import { VirtualKeyboard } from './components/typing/VirtualKeyboard';
@@ -287,7 +288,7 @@ export function App() {
   const progressPercent = charDetails.length > 0 ? (currentIndex / charDetails.length) * 100 : 0;
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 selection:bg-sky-500/30 selection:text-sky-200">
+    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-sky-500/25 selection:text-sky-900 dark:selection:text-sky-200 transition-colors">
       <Header
         language={language}
         onLanguageChange={(newLang) => {
@@ -304,26 +305,13 @@ export function App() {
         historyCount={history.length}
       />
 
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col gap-6">
-        {/* Mode Selector */}
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col gap-6">
+        {/* Top Controls: Mode Tabs & Modifiers */}
         <ModeSelector
           language={language}
           mode={mode}
           onModeChange={(newMode) => {
             setMode(newMode);
-            handleRestart();
-          }}
-          lessons={lessons}
-          currentLessonId={currentLessonId}
-          onSelectLesson={(id) => {
-            setCurrentLessonId(id);
-            setCurrentExerciseIndex(0);
-            handleRestart();
-          }}
-          currentExerciseIndex={currentExerciseIndex}
-          totalExercises={activeLesson.exercises.length}
-          onExerciseChange={(idx) => {
-            setCurrentExerciseIndex(idx);
             handleRestart();
           }}
           timedDuration={timedDuration}
@@ -334,7 +322,6 @@ export function App() {
           showKeyboard={showKeyboard}
           onToggleKeyboard={() => setShowKeyboard((prev) => !prev)}
           activeLayoutName={activeLayoutData.name}
-          lessonProgress={lessonProgress}
           onApplyCustomText={handleApplyCustomText}
           thaiLayout={thaiLayout}
           onThaiLayoutChange={(layout) => setThaiLayout(layout)}
@@ -347,73 +334,98 @@ export function App() {
           onToggleBlindMode={() => setBlindMode((prev) => !prev)}
         />
 
-        {/* Real-time Metric Bar */}
-        <MetricBar
-          stats={stats}
-          language={language}
-          isTimedMode={isCountdown}
-          progressPercent={progressPercent}
-        />
+        {/* Layout: Sidebar on Left when in Lesson Mode, Main Practice Area on Right */}
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+          {mode === 'lesson' && (
+            <LevelSidebar
+              lessons={lessons}
+              currentLessonId={currentLessonId}
+              onSelectLesson={(id) => {
+                setCurrentLessonId(id);
+                setCurrentExerciseIndex(0);
+                handleRestart();
+              }}
+              currentExerciseIndex={currentExerciseIndex}
+              onSelectExercise={(idx) => {
+                setCurrentExerciseIndex(idx);
+                handleRestart();
+              }}
+              lessonProgress={lessonProgress}
+              language={language}
+            />
+          )}
 
-        {/* Main Typing Area or Result Card when completed */}
-        {isCompleted ? (
-          <div className="flex flex-col gap-6">
-            <ResultCard
+          {/* Main Practice Area */}
+          <div className="flex-1 min-w-0 w-full flex flex-col gap-6">
+            {/* Real-time Metric Bar */}
+            <MetricBar
               stats={stats}
               language={language}
-              title={
-                mode === 'lesson'
-                  ? `${activeLesson.title} (${language === 'th' ? 'แบบฝึกหัด' : 'Exercise'} ${currentExerciseIndex + 1})`
-                  : mode === 'timed'
-                  ? `Timed Test (${timedDuration}s)`
-                  : mode === 'custom'
-                  ? 'Custom Text'
-                  : 'Common Words Practice'
-              }
-              onRestart={handleRestart}
-              onNext={handleNextExercise}
-              hasNext={mode === 'lesson' || mode === 'words'}
+              isTimedMode={isCountdown}
+              progressPercent={progressPercent}
             />
 
-            {/* Weak Key Analysis */}
-            <WeakKeyAnalysis
-              mistakeKeys={mistakeKeys}
-              language={language}
-              layoutData={activeLayoutData}
-            />
-          </div>
-        ) : (
-          <div className="flex flex-col gap-6">
-            <TypingArea
-              charDetails={charDetails}
-              currentIndex={currentIndex}
-              language={language}
-              onCharInput={handleCharInput}
-              onBackspace={handleBackspace}
-              onRestart={handleRestart}
-              isCompleted={isCompleted}
-              blindMode={blindMode}
-              strictMode={strictMode}
-            />
+            {/* Main Typing Area or Result Card when completed */}
+            {isCompleted ? (
+              <div className="flex flex-col gap-6">
+                <ResultCard
+                  stats={stats}
+                  language={language}
+                  title={
+                    mode === 'lesson'
+                      ? `${activeLesson.title} (${language === 'th' ? 'แบบฝึกหัด' : 'Exercise'} ${currentExerciseIndex + 1})`
+                      : mode === 'timed'
+                      ? `Timed Test (${timedDuration}s)`
+                      : mode === 'custom'
+                      ? 'Custom Text'
+                      : 'Common Words Practice'
+                  }
+                  onRestart={handleRestart}
+                  onNext={handleNextExercise}
+                  hasNext={mode === 'lesson' || mode === 'words'}
+                />
 
-            {/* Optional Virtual Keyboard with Hands Visualizer */}
-            {showKeyboard && (
-              <VirtualKeyboard
-                layoutData={activeLayoutData}
-                currentChar={currentChar}
-              />
+                {/* Weak Key Analysis */}
+                <WeakKeyAnalysis
+                  mistakeKeys={mistakeKeys}
+                  language={language}
+                  layoutData={activeLayoutData}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col gap-6">
+                <TypingArea
+                  charDetails={charDetails}
+                  currentIndex={currentIndex}
+                  language={language}
+                  onCharInput={handleCharInput}
+                  onBackspace={handleBackspace}
+                  onRestart={handleRestart}
+                  isCompleted={isCompleted}
+                  blindMode={blindMode}
+                  strictMode={strictMode}
+                />
+
+                {/* Optional Virtual Keyboard with Hands Visualizer */}
+                {showKeyboard && (
+                  <VirtualKeyboard
+                    layoutData={activeLayoutData}
+                    currentChar={currentChar}
+                  />
+                )}
+
+                {/* Weak Key Live Preview if mistakes have been made */}
+                {Object.keys(mistakeKeys).length > 0 && (
+                  <WeakKeyAnalysis
+                    mistakeKeys={mistakeKeys}
+                    language={language}
+                    layoutData={activeLayoutData}
+                  />
+                )}
+              </div>
             )}
-
-            {/* Weak Key Live Preview if mistakes have been made */}
-            {Object.keys(mistakeKeys).length > 0 && (
-              <WeakKeyAnalysis
-                mistakeKeys={mistakeKeys}
-                language={language}
-                layoutData={activeLayoutData}
-              />
-            )}
           </div>
-        )}
+        </div>
       </main>
 
       {/* History & Analytics Modal */}

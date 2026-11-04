@@ -62,23 +62,23 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md sticky top-0 z-40">
+    <header className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md sticky top-0 z-40 transition-colors">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Brand / Logo */}
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 text-white">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 text-white shrink-0">
             <Keyboard className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-bold tracking-tight text-white font-sans">
+              <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white font-sans">
                 Thai Typing Lab
               </h1>
-              <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">
+              <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                 v1.2
               </span>
             </div>
-            <p className="text-xs text-slate-400 hidden sm:block">
+            <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
               {language === 'th'
                 ? 'ห้องแล็บฝึกพิมพ์สัมผัสไทย-สากล (Kedmanee & Pattachote & QWERTY)'
                 : 'Touch Typing Practice & Analytics'}
@@ -91,10 +91,10 @@ export const Header: React.FC<HeaderProps> = ({
           {/* History & Statistics Button */}
           <button
             onClick={onOpenHistory}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-xs font-medium text-slate-200 hover:text-white transition-all relative"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 dark:border-slate-700/60 dark:text-slate-200 dark:hover:text-white text-xs font-medium transition-all relative"
             title={language === 'th' ? 'ดูสถิติและประวัติการฝึกพิมพ์' : 'View History & Statistics'}
           >
-            <BarChart2 className="w-3.5 h-3.5 text-sky-400" />
+            <BarChart2 className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
             <span className="hidden sm:inline">
               {language === 'th' ? 'สถิติ' : 'Analytics'}
             </span>
@@ -106,13 +106,13 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {/* Language Switcher */}
-          <div className="flex items-center bg-slate-800/80 p-0.5 rounded-lg border border-slate-700/60 text-xs font-medium">
+          <div className="flex items-center bg-slate-100 dark:bg-slate-800/80 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700/60 text-xs font-medium">
             <button
               onClick={() => onLanguageChange('th')}
               className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md transition-all ${
                 language === 'th'
                   ? 'bg-sky-500 text-white shadow-sm font-semibold'
-                  : 'text-slate-400 hover:text-slate-200'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
               title="สลับเป็นภาษาไทย"
             >
@@ -124,7 +124,7 @@ export const Header: React.FC<HeaderProps> = ({
               className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md transition-all ${
                 language === 'en'
                   ? 'bg-sky-500 text-white shadow-sm font-semibold'
-                  : 'text-slate-400 hover:text-slate-200'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
               title="Switch to English"
             >
@@ -138,8 +138,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setShowSoundMenu((prev) => !prev)}
               className={`flex items-center gap-1 p-2 rounded-lg border transition-all text-xs font-medium ${
                 soundProfile !== 'off'
-                  ? 'bg-slate-800 border-slate-700 text-sky-400 hover:bg-slate-700'
-                  : 'bg-slate-800/50 border-slate-800 text-slate-500 hover:text-slate-300'
+                  ? 'bg-slate-100 border-slate-200 text-sky-600 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-sky-400 dark:hover:bg-slate-700'
+                  : 'bg-slate-100/60 border-slate-200 text-slate-400 hover:text-slate-600 dark:bg-slate-800/50 dark:border-slate-800 dark:text-slate-500 dark:hover:text-slate-300'
               }`}
               title={language === 'th' ? 'เลือกโปรไฟล์เสียงพิมพ์' : 'Sound Profiles'}
             >
@@ -155,14 +155,14 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Sound Dropdown Menu */}
             {showSoundMenu && (
-              <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl p-2 z-50 animate-pop">
-                <div className="px-3 py-1.5 text-[11px] font-semibold text-slate-400 border-b border-slate-800 mb-1 flex items-center justify-between">
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-2 z-50 animate-pop">
+                <div className="px-3 py-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center justify-between">
                   <span>{language === 'th' ? 'เสียงคีย์บอร์ด' : 'Keyboard Sound'}</span>
-                  <span className="text-[10px] text-sky-400 font-mono">{Math.round(soundVolume * 100)}%</span>
+                  <span className="text-[10px] text-sky-500 dark:text-sky-400 font-mono">{Math.round(soundVolume * 100)}%</span>
                 </div>
 
                 {/* Volume Slider */}
-                <div className="px-3 py-2 flex items-center gap-2 border-b border-slate-800/80 mb-1">
+                <div className="px-3 py-2 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800/80 mb-1">
                   <Sliders className="w-3.5 h-3.5 text-slate-400" />
                   <input
                     type="range"
@@ -171,7 +171,7 @@ export const Header: React.FC<HeaderProps> = ({
                     step="0.05"
                     value={soundVolume}
                     onChange={(e) => onSoundVolumeChange(parseFloat(e.target.value))}
-                    className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500"
+                    className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500"
                   />
                 </div>
 
@@ -188,12 +188,12 @@ export const Header: React.FC<HeaderProps> = ({
                       }}
                       className={`w-full text-left px-3 py-2 rounded-xl text-xs flex flex-col gap-0.5 transition-all ${
                         isSelected
-                          ? 'bg-sky-500/15 text-sky-300 font-semibold'
-                          : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
+                          ? 'bg-sky-500/10 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300 font-semibold'
+                          : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800/80 dark:hover:text-white'
                       }`}
                     >
                       <span>{p.label}</span>
-                      <span className="text-[10px] text-slate-500 font-normal">
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal">
                         {p.desc}
                       </span>
                     </button>
@@ -206,10 +206,10 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Theme Toggle */}
           <button
             onClick={onToggleTheme}
-            className="p-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-700 transition-all"
-            title={isDark ? 'Switch to Light' : 'Switch to Dark'}
+            className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700 transition-all"
+            title={isDark ? 'สลับเป็นโหมดสว่าง' : 'สลับเป็นโหมดมืด'}
           >
-            {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
           </button>
         </div>
       </div>

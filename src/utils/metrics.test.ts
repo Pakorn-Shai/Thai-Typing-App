@@ -41,3 +41,4 @@ describe('Metrics Calculation Utility', () => {
     expect(formatTime(125)).toBe('02:05');
   });
 });
+

@@ -113,10 +113,10 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
   return (
     <div
       onClick={handleContainerClick}
-      className={`relative w-full rounded-2xl bg-slate-900/90 border transition-all duration-200 cursor-text select-none shadow-xl ${
+      className={`relative w-full rounded-2xl bg-white dark:bg-slate-900/90 border transition-all duration-200 cursor-text select-none shadow-xl ${
         isFocused
           ? 'border-sky-500/60 ring-2 ring-sky-500/20'
-          : 'border-slate-800 hover:border-slate-700'
+          : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
       }`}
     >
       {/* Hidden input to capture physical and virtual keystrokes */}
@@ -136,8 +136,8 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
 
       {/* Focus warning banner if blurred */}
       {!isFocused && !isCompleted && (
-        <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-xs rounded-2xl flex items-center justify-center z-20 cursor-pointer">
-          <div className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-sky-500/40 rounded-xl text-sky-300 text-sm font-medium shadow-lg animate-pulse">
+        <div className="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/70 backdrop-blur-xs rounded-2xl flex items-center justify-center z-20 cursor-pointer">
+          <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-sky-500/40 rounded-xl text-sky-600 dark:text-sky-300 text-sm font-medium shadow-lg animate-pulse">
             <MousePointerClick className="w-4 h-4" />
             <span>
               {language === 'th'
@@ -149,20 +149,20 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
       )}
 
       {/* Header bar within typing area */}
-      <div className="px-5 py-3 border-b border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+      <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-2">
-          <span className="font-medium text-slate-300">
+          <span className="font-medium text-slate-700 dark:text-slate-300">
             {language === 'th' ? 'พื้นที่ฝึกพิมพ์' : 'Practice Box'}
           </span>
           {strictMode && (
-            <span className="flex items-center gap-1 text-[10px] bg-rose-500/15 text-rose-300 border border-rose-500/30 px-2 py-0.5 rounded-full font-semibold">
-              <Skull className="w-3 h-3 text-rose-400" />
+            <span className="flex items-center gap-1 text-[10px] bg-rose-500/10 dark:bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30 px-2 py-0.5 rounded-full font-semibold">
+              <Skull className="w-3 h-3 text-rose-500" />
               Sudden Death
             </span>
           )}
           {blindMode && (
-            <span className="flex items-center gap-1 text-[10px] bg-amber-500/15 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-semibold">
-              <Ghost className="w-3 h-3 text-amber-400" />
+            <span className="flex items-center gap-1 text-[10px] bg-amber-500/10 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-semibold">
+              <Ghost className="w-3 h-3 text-amber-500" />
               Blind Mode
             </span>
           )}
@@ -174,10 +174,10 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
             onRestart();
             inputRef.current?.focus();
           }}
-          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all text-[11px]"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300 dark:hover:text-white transition-all text-[11px]"
           title={language === 'th' ? 'เริ่มใหม่ (Tab+Enter)' : 'Restart (Tab+Enter)'}
         >
-          <RotateCcw className="w-3 h-3 text-sky-400" />
+          <RotateCcw className="w-3 h-3 text-sky-500 dark:text-sky-400" />
           <span>{language === 'th' ? 'เริ่มใหม่' : 'Restart'}</span>
         </button>
       </div>
@@ -196,13 +196,15 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
 
             let charClass = '';
             if (isCorrect) {
-              charClass = 'text-emerald-400 font-medium';
+              charClass = 'text-emerald-600 dark:text-emerald-400 font-medium';
             } else if (isIncorrect) {
-              charClass = 'text-rose-400 bg-rose-500/20 rounded px-0.5 underline decoration-rose-500';
+              charClass = 'text-rose-600 dark:text-rose-400 bg-rose-500/20 rounded px-0.5 underline decoration-rose-500';
             } else if (isCurrent) {
-              charClass = 'text-sky-300 font-semibold bg-sky-500/25 rounded px-0.5 custom-caret';
+              charClass = 'text-sky-700 dark:text-sky-300 font-semibold bg-sky-500/15 dark:bg-sky-500/25 rounded px-0.5 custom-caret';
             } else if (isPending) {
-              charClass = blindMode ? 'text-slate-600 blur-[5px] select-none opacity-30' : 'text-slate-500';
+              charClass = blindMode
+                ? 'text-slate-300 dark:text-slate-600 blur-[5px] select-none opacity-30'
+                : 'text-slate-400 dark:text-slate-500';
             }
 
             // Display space character visually

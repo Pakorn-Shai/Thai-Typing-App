@@ -72,3 +72,4 @@ describe('Thai Tokenizer & Layout Utilities', () => {
     expect(keyShiftF?.needShift).toBe(true);
   });
 });
+
