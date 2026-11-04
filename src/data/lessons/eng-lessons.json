@@ -2,76 +2,193 @@
   {
     "id": "en-level-1",
     "level": 1,
-    "title": "Level 1: Home Row",
-    "titleEn": "Level 1: English Home Row",
-    "description": "Master the foundation fingers: a s d f j k l ;",
+    "title": "Level 1: แป้นเหย้าพื้นฐาน (Home Row Foundation)",
+    "titleEn": "Level 1: Home Row Foundation",
+    "description": "วาง 8 นิ้วบนแป้นเหย้าหลัก a s d f j k l ; และเคาะสลับนิ้ว",
     "targetKeys": ["a", "s", "d", "f", "j", "k", "l", ";"],
     "exercises": [
-      "asdf jkl; asdf jkl;",
-      "ask all dad fall salad flask",
-      "sad lad glad fall flash salads",
-      "a flask of fall salad for dad",
-      "all lads ask for a glad dad"
+      "asdf jkl; asdf jkl; fdsa ;lkj",
+      "ask all dad fall salad flask lass",
+      "sad lad glad fall flash salads dads",
+      "a flask of salad for a glad dad",
+      "all lads ask for salads fall flask",
+      "dad asks a sad lad for a flask"
     ]
   },
   {
     "id": "en-level-2",
     "level": 2,
-    "title": "Level 2: Top Row",
-    "titleEn": "Level 2: English Top Row",
-    "description": "Reach up smoothly: q w e r t y u i o p",
-    "targetKeys": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+    "title": "Level 2: แป้นเหย้าขยาย (Home Row Extended - g, h, ')",
+    "titleEn": "Level 2: Home Row Extended (g, h, ')",
+    "description": "ฝึกก้าวนิ้วชี้ซ้ายเคาะ g, นิ้วชี้ขวาเคาะ h และนิ้วก้อยเคาะ ' (Apostrophe)",
+    "targetKeys": ["g", "h", "'"],
     "exercises": [
-      "qwert yuiop qwert yuiop",
-      "tree true write port report quit",
-      "water power write polite quote tower",
-      "we write top quality papers every year",
-      "quick thinkers quietly perform tricky tasks"
+      "fgf jhj gash half flag dash hall",
+      "glad flash glass half shaft flags",
+      "it's dad's flask and lass's glass",
+      "he has had a glad flash of hope",
+      "hall gas flag dash half shaft glad",
+      "he had a glass flask of half gas"
     ]
   },
   {
     "id": "en-level-3",
     "level": 3,
-    "title": "Level 3: Bottom Row",
-    "titleEn": "Level 3: English Bottom Row",
-    "description": "Step down with precision: z x c v b n m , . /",
-    "targetKeys": ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
+    "title": "Level 3: สระแถวบนยอดนิยม (Top Row Vowels - e, i, r, u)",
+    "titleEn": "Level 3: Top Row Vowels (e, i, r, u)",
+    "description": "ฝึกก้าวนิ้วขึ้นแถวบนเคาะสระหลัก e, i และพยัญชนะ r, u",
+    "targetKeys": ["e", "i", "r", "u"],
     "exercises": [
-      "zxcvb nm,./ zxcvb nm,./",
-      "can van man back zinc next move calm",
-      "mix come zoom ban zone brave calm",
-      "pack my box with five dozen liquor jugs.",
-      "the quick brown fox jumps over the lazy dog."
+      "ded kik frf juj ride fire sure",
+      "like life side real rule free fair",
+      "fresh grass deer dark girl rule fire",
+      "her sister likes fresh summer fruit",
+      "she feels glad under the blue sky",
+      "true friends are like bright stars in dark skies"
     ]
   },
   {
     "id": "en-level-4",
     "level": 4,
-    "title": "Level 4: Numbers & Symbols",
-    "titleEn": "Level 4: Numbers & Symbols",
-    "description": "Shift keys, numbers, and punctuation marks",
-    "targetKeys": ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    "title": "Level 4: แถวบนรอบนอก (Top Row Reaches - t, y, o, p, w, q)",
+    "titleEn": "Level 4: Top Row Reaches (t, y, o, p, w, q)",
+    "description": "ฝึกก้าวนิ้วขึ้นแถวบนเคาะ t, y, o, p, w, q ให้ครบแถว",
+    "targetKeys": ["t", "y", "o", "p", "w", "q"],
     "exercises": [
-      "Item #1 costs $25.50 (with 10% discount)!",
-      "Plan: Step 1 -> Step 2 -> Success & Joy!",
-      "Email: user@example.com [ID: 987-654-321]",
-      "The equation is: (x + y) * 2 = 100%!"
+      "ftf jyj lol ;p; sws aqa write",
+      "tree true water power write polite port",
+      "quick quiet quote power tower top report",
+      "we write top quality papers every year",
+      "the sweet little poet wrote pretty poems",
+      "quick thinkers quietly perform tricky tasks with great care"
     ]
   },
   {
     "id": "en-level-5",
     "level": 5,
-    "title": "Level 5: Speed & Flow (Common Words)",
-    "titleEn": "Level 5: English Paragraphs",
-    "description": "Continuous typing for natural speed and rhythm",
-    "targetKeys": ["All Keys"],
+    "title": "Level 5: แถวล่างตรงกลาง (Bottom Row Center - v, b, n, m, c)",
+    "titleEn": "Level 5: Bottom Row Center (v, b, n, m, c)",
+    "description": "ฝึกก้าวนิ้วลงแถวล่างเคาะ v, b, n, m และ c",
+    "targetKeys": ["v", "b", "n", "m", "c"],
     "exercises": [
-      "Practice makes perfect when you type consistently every day.",
-      "Speed is a byproduct of accuracy; focus on precision first.",
-      "Consistency and good posture will make typing feel effortless.",
-      "Technology empowers people to create, communicate, and solve difficult problems together.",
-      "Every journey of a thousand miles begins with a single confident step."
+      "fvf fbf jnj jmj dcd come move",
+      "can van man back come view beam",
+      "brave calm clean vine bone comb move",
+      "clean rivers flow down to calm blue oceans",
+      "music can bring calm and joy to every mind",
+      "brave men and women build strong vibrant communities"
+    ]
+  },
+  {
+    "id": "en-level-6",
+    "level": 6,
+    "title": "Level 6: แถวล่างรอบนอกและจุด (Bottom Row Outer - z, x, comma, period, /)",
+    "titleEn": "Level 6: Bottom Row Outer (z, x, , . /)",
+    "description": "ฝึกก้าวนิ้วลงแถวล่างเคาะ z, x, เครื่องหมายจุลภาค (,), มหัพภาค (.) และทับ (/)",
+    "targetKeys": ["z", "x", ",", ".", "/"],
+    "exercises": [
+      "aza sxs k,k l.l ;/; zero next",
+      "mix, fix, six, zoom, zone, extra, size.",
+      "zen, zinc, exam, taxi, amaze, relax.",
+      "pack my box with five dozen liquor jugs.",
+      "the quick brown fox jumps over the lazy dog.",
+      "keep moving forward, step by step, day by day."
+    ]
+  },
+  {
+    "id": "en-level-7",
+    "level": 7,
+    "title": "Level 7: ตัวพิมพ์ใหญ่และปุ่ม Shift (Capital Letters & Shift)",
+    "titleEn": "Level 7: Capital Letters & Shift",
+    "description": "ฝึกใช้นิ้วก้อยกด Shift สลับมือตรงข้ามเพื่อพิมพ์ตัวอักษรพิมพ์ใหญ่",
+    "targetKeys": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+    "exercises": [
+      "London, Paris, Tokyo, New York, Bangkok.",
+      "Monday, Tuesday, Wednesday, Friday, Sunday.",
+      "Alice and Bob traveled across North America.",
+      "Dr. John Smith met Professor Jane Doe at Harvard.",
+      "Great minds discuss ideas, average minds discuss events.",
+      "Success is not final, failure is not fatal: it is the courage to continue that counts."
+    ]
+  },
+  {
+    "id": "en-level-8",
+    "level": 8,
+    "title": "Level 8: แถวตัวเลข (Number Row - 1 to 0, -, =)",
+    "titleEn": "Level 8: Number Row (1 to 0, -, =)",
+    "description": "ฝึกเอื้อมนิ้วขึ้นแถวบนสุดเคาะตัวเลข 1 ถึง 0 เครื่องหมายลบ (-) และเท่ากับ (=)",
+    "targetKeys": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
+    "exercises": [
+      "123 456 789 0 - = 10 20 30 40 50",
+      "Room 101, Flight 747, Gate 24, Terminal 3.",
+      "The year 2026 marks 365 days of new opportunities.",
+      "In 1969, Apollo 11 landed 2 astronauts on the moon.",
+      "Calculate: 15 + 25 = 40, and 100 - 35 = 65.",
+      "Order #89201 contains 12 items valued at 450 dollars."
+    ]
+  },
+  {
+    "id": "en-level-9",
+    "level": 9,
+    "title": "Level 9: สัญลักษณ์และเครื่องหมายพิเศษ (Symbols & Punctuation)",
+    "titleEn": "Level 9: Symbols & Punctuation",
+    "description": "ฝึกกด Shift แถวตัวเลขเคาะเครื่องหมาย ! @ # $ % ^ & * ( ) _ + และ [ ] { } : \" < > ?",
+    "targetKeys": ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "{", "}", "[", "]", ":", "\"", "<", ">", "?"],
+    "exercises": [
+      "Email: admin@test.com | Tag: #innovation",
+      "Special price: $99.99 (save 25% today)!",
+      "The score was 98.5% (ranked #1 in top 10).",
+      "Question: \"Is this correct?\" -> Answer: Yes!",
+      "Use symbols carefully: *important*, _underline_, and [brackets].",
+      "Save 50% on all orders over $100: Code #SUMMER2026!"
+    ]
+  },
+  {
+    "id": "en-level-10",
+    "level": 10,
+    "title": "Level 10: โค้ดและไวยากรณ์โปรแกรมเมอร์ (Coding & Tech Syntax)",
+    "titleEn": "Level 10: Coding & Tech Syntax",
+    "description": "ฝึกพิมพ์สัญลักษณ์สำหรับเขียนโปรแกรม เช่น camelCase, arrow functions, brackets, operators",
+    "targetKeys": ["const", "let", "function", "=>", "{}", "()", "[]", ";", "&&", "||", "==="],
+    "exercises": [
+      "const totalCount = items.length;",
+      "function calculateSum(a, b) { return a + b; }",
+      "const result = data.filter(item => item.isActive);",
+      "if (status === 200 && response.ok) { processData(); }",
+      "npm run dev && git commit -m \"feat: enhance UI\"",
+      "export default async function fetchData(url: string) { return await fetch(url); }"
+    ]
+  },
+  {
+    "id": "en-level-11",
+    "level": 11,
+    "title": "Level 11: 100 คำศัพท์พบบ่อยสูงสุด (100 Most Common Words)",
+    "titleEn": "Level 11: 100 Most Common Words",
+    "description": "ฝึกพิมพ์ 100 คำศัพท์ภาษาอังกฤษที่พบบ่อยที่สุด เพื่อสร้างกล้ามเนื้อความจำอัตโนมัติ",
+    "targetKeys": ["High-Frequency Words"],
+    "exercises": [
+      "the be to of and a in that have I it for not on with he as you do at",
+      "this but his by from they we say her she or an will my one all would there",
+      "their what so up out if about who get which go me when make can like time",
+      "no just him know take people into year your good some could them see other than",
+      "then now look only come its over think also back after use two how our work",
+      "first well way even new want because any these give day most us find tell"
+    ]
+  },
+  {
+    "id": "en-level-12",
+    "level": 12,
+    "title": "Level 12: วรรณกรรมและสุนทรพจน์ระดับโลก (Literature & Master Passages)",
+    "titleEn": "Level 12: Literature & Master Passages",
+    "description": "ฝึกพิมพ์ข้อความวรรณกรรม สุนทรพจน์ประวัติศาสตร์ และประโยคยาวเพื่อความคล่องตัวระดับสูง",
+    "targetKeys": ["Full Mastery"],
+    "exercises": [
+      "To be, or not to be, that is the question: whether 'tis nobler in the mind to suffer the slings and arrows of outrageous fortune.",
+      "Four score and seven years ago our fathers brought forth on this continent a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.",
+      "I have a dream that one day this nation will rise up and live out the true meaning of its creed: We hold these truths to be self-evident, that all men are created equal.",
+      "Stay hungry, stay foolish. Never let the noise of others' opinions drown out your own inner voice.",
+      "In the middle of difficulty lies opportunity. Keep your face always toward the sunshine, and shadows will fall behind you.",
+      "The only limit to our realization of tomorrow will be our doubts of today. Let us move forward with strong and active faith."
     ]
   }
 ]
-
