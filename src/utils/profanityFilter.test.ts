@@ -44,3 +44,4 @@ describe('profanityFilter', () => {
     expect(validatePlayerName('A'.repeat(25), 'th').isValid).toBe(false);
   });
 });
+
